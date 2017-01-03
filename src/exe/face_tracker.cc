@@ -193,8 +193,8 @@ int main(int argc, const char** argv)
     //track this image
     std::vector<int> wSize; if(failed)wSize = wSize2; else wSize = wSize1; 
     if(model.Track(gray,wSize,fpd,nIter,clamp,fTol,fcheck) == 0){
-      int idx = model._clm.GetViewIdx(); failed = false;
-      Draw(im,model._shape,con,tri,model._clm._visi[idx]); 
+      failed = false;
+      Draw(im,model._shape,con,tri,model.GetVisiMat()); 
     }else{
       if(show){cv::Mat R(im,cvRect(0,0,150,50)); R = cv::Scalar(0,0,255);}
       model.FrameReset(); failed = true;

@@ -47,7 +47,7 @@ namespace FACETRACKER
   /** 
       Input-output Operations
   */
-  class IO{
+  class CV_EXPORTS IO{
   public:
     enum{PDM = 0,PAW,PATCH,MPATCH,CLM,FDET,FCHECK,MFCHECK,TRACKER};
     static void ReadMat(std::ifstream& s,cv::Mat &M);

@@ -7,6 +7,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tracker", "Tracker.vcxproj"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaceTracker", "FaceTracker.vcxproj", "{884649FA-7C0C-4E43-A8C5-8D66D86AD950}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CapTest", "src\CapTest\CapTest.vcxproj", "{99520458-EAEA-47E5-BE72-0B1BABA66A1C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{884649FA-7C0C-4E43-A8C5-8D66D86AD950} = {884649FA-7C0C-4E43-A8C5-8D66D86AD950}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +36,14 @@ Global
 		{884649FA-7C0C-4E43-A8C5-8D66D86AD950}.Release|x64.Build.0 = Release|x64
 		{884649FA-7C0C-4E43-A8C5-8D66D86AD950}.Release|x86.ActiveCfg = Release|Win32
 		{884649FA-7C0C-4E43-A8C5-8D66D86AD950}.Release|x86.Build.0 = Release|Win32
+		{99520458-EAEA-47E5-BE72-0B1BABA66A1C}.Debug|x64.ActiveCfg = Debug|x64
+		{99520458-EAEA-47E5-BE72-0B1BABA66A1C}.Debug|x64.Build.0 = Debug|x64
+		{99520458-EAEA-47E5-BE72-0B1BABA66A1C}.Debug|x86.ActiveCfg = Debug|Win32
+		{99520458-EAEA-47E5-BE72-0B1BABA66A1C}.Debug|x86.Build.0 = Debug|Win32
+		{99520458-EAEA-47E5-BE72-0B1BABA66A1C}.Release|x64.ActiveCfg = Release|x64
+		{99520458-EAEA-47E5-BE72-0B1BABA66A1C}.Release|x64.Build.0 = Release|x64
+		{99520458-EAEA-47E5-BE72-0B1BABA66A1C}.Release|x86.ActiveCfg = Release|Win32
+		{99520458-EAEA-47E5-BE72-0B1BABA66A1C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
