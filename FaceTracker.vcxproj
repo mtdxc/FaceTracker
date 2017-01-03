@@ -170,6 +170,8 @@
     <ClCompile Include="src\lib\FCheck.cc" />
     <ClCompile Include="src\lib\FDet.cc" />
     <ClCompile Include="src\lib\IO.cc" />
+    <ClCompile Include="src\lib\ofxcv.cpp" />
+    <ClCompile Include="src\lib\ofxFaceTracker.cpp" />
     <ClCompile Include="src\lib\Patch.cc" />
     <ClCompile Include="src\lib\PAW.cc" />
     <ClCompile Include="src\lib\PDM.cc" />
@@ -190,6 +192,8 @@
     <ClInclude Include="src\core\precomp.hpp" />
     <ClInclude Include="src\imgproc\avx2\imgwarp_avx2.hpp" />
     <ClInclude Include="src\imgproc\avx\imgwarp_avx.hpp" />
+    <ClInclude Include="src\lib\ofxcv.h" />
+    <ClInclude Include="src\lib\ofxFaceTracker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

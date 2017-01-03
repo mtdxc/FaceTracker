@@ -9,6 +9,7 @@
 #include "DrawVideo.h"
 #include "face_detection.h"
 #include "FaceTracker/Tracker.h"
+#include "../lib/ofxFaceTracker.h"
 
 // CRealTimeTestDlg 对话框
 class CRealTimeTestDlg : public CDialogEx
@@ -30,13 +31,16 @@ protected:
   TCHAR strfps[32];
   DWORD m_tick;
   int m_nFrame;
-	HICON m_hIcon;
+  HICON m_hIcon;
   CCaptureVideo m_capture;
   CDrawVideo m_draw;
   seeta::FaceDetection detector;
-  
-  FACETRACKER::Tracker model;
-  bool failed;
+#ifdef OFX_EXPORTS
+	ofxFaceTracker tracker;
+#else
+	FACETRACKER::Tracker model;
+	bool failed;
+#endif
 
   std::string yuv;
 	// 生成的消息映射函数

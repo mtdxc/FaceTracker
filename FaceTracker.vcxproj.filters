@@ -180,6 +180,12 @@
     <ClCompile Include="src\imgproc\deriv.cpp">
       <Filter>imageproc</Filter>
     </ClCompile>
+    <ClCompile Include="src\lib\ofxFaceTracker.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\ofxcv.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\FaceTracker\CLM.h">
@@ -217,6 +223,12 @@
     </ClInclude>
     <ClInclude Include="src\imgproc\avx2\imgwarp_avx2.hpp">
       <Filter>imageproc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\ofxcv.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lib\ofxFaceTracker.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

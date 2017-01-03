@@ -50,6 +50,7 @@ namespace FACETRACKER
   */
   class CV_EXPORTS Tracker{
   public:    
+    CLM        _clm;    /**< Constrained Local Model           */
     FDet       _fdet;   /**< Face Detector                     */
     cv::Mat& GetVisiMat();
     int64      _frame;  /**< Frame number since last detection */    
@@ -61,6 +62,7 @@ namespace FACETRACKER
     
     /** NULL constructor */
     Tracker(){;}
+    
     /** Constructor from model file */
     Tracker(const char* fname){this->Load(fname);}
 
@@ -103,7 +105,6 @@ namespace FACETRACKER
     void Read(std::ifstream &s,bool readType = true);
 
   private:
-    CLM        _clm;    /**< Constrained Local Model           */
     cv::Mat gray_,temp_,ncc_,small_;
     void Init(CLM &clm,FDet &fdet,MFCheck &fcheck,
 	      cv::Mat &rshape,cv::Scalar &simil);    

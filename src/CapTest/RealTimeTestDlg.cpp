@@ -166,8 +166,27 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
   if (yuv.size() < nyuv)
     yuv.resize(nyuv);
   BYTE* pyuv = (BYTE*)yuv.data();
-  RGBtoYUV420P(pRgb, pyuv, width, height, 3, FALSE);
+  // 这边要进行翻转(否则识别不对)！
+  RGBtoYUV420P(pRgb, pyuv, width, height, 3, TRUE);
+  m_draw.rects.clear();
+  m_draw.points.clear();
 #if 1
+  if (tracker.updateYUV(pyuv, width, height)) {
+    vector<ofVec2f> pts = tracker.getImagePoints();
+    TRACE("Got %d pts\n", pts.size());
+    for (auto p : pts){
+      POINT pt = { p.x, p.y };
+      m_draw.points.push_back(pt);
+    }
+    /* 把右上眼给描点出来
+    tracker.getGesture(ofxFaceTracker::MOUTH_WIDTH);
+    ofPolyline polyEye = tracker.getImageFeature(ofxFaceTracker::LEFT_EYE_TOP);
+    for (auto p : polyEye.points) {
+      POINT pt = { p.x, p.y };
+      m_draw.points.push_back(pt);
+    }*/
+  }
+#elif 0
   //set other tracking parameters
   std::vector<int> wSize1(1); wSize1[0] = 7;
   std::vector<int> wSize2(3); wSize2[0] = 11; wSize2[1] = 9; wSize2[2] = 7;
@@ -185,8 +204,7 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 #else
   cv::Mat gray(height, width, CV_8UC1, pyuv);
 #endif
-  m_draw.rects.clear();
-  m_draw.points.clear();
+
   // 识别
   if (model.Track(gray, wSize, fpd, nIter, clamp, fTol, false) == 0) {
     failed = false;
@@ -252,10 +270,19 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
     GetDlgItem(IDC_VIDEO, &hVideo);
     m_capture.Start(m_cbDevices.GetCurSel(), NULL);// hVideo);
     m_draw.Init(hVideo);
-
+#ifdef OFX_EXPORTS
+    /* 参数设置
+    tracker.setRescale(1.0);
+    tracker.setIterations(5);
+    tracker.setClamp(3.0);
+    tracker.setTolerance(0.01);
+    tracker.setAttempts(1);
+    */
+    tracker.setup();
+#else
     model.Load("face2.tracker");
     failed = true;
-
+#endif
     m_nFrame = 0;
     strfps[0] = 0;
     m_tick = GetTickCount();
@@ -281,9 +308,15 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
 
 void CRealTimeTestDlg::OnBnClickedButtonReset(){
   // TODO: 在此添加控件通知处理程序代码
+#ifdef OFX_EXPORTS
+  tracker.reset();
+#else
   model.FrameReset();
+#endif
 }
 #pragma comment(lib,"FaceTracker.lib")
+
+#ifndef OFX_EXPORTS
 //=============================================================================
 void Draw(cv::Mat &image, cv::Mat &shape, cv::Mat &con, cv::Mat &tri, cv::Mat &visi)
 {
@@ -370,4 +403,4 @@ void TrackerFunc() {
     }
   }
 }
-
+#endif
