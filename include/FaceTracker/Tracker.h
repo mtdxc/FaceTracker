@@ -48,7 +48,7 @@ namespace FACETRACKER
   /** 
       Face Tracker
   */
-  class Tracker{
+  class CV_EXPORTS Tracker{
   public:    
     CLM        _clm;    /**< Constrained Local Model           */
     FDet       _fdet;   /**< Face Detector                     */
