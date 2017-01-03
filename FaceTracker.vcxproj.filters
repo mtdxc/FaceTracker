@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{eca10fca-161a-4fd4-a4f2-847783da9842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imageproc">
+      <UniqueIdentifier>{0989bc32-a75a-404d-9eca-ad1fbb597195}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="objdetect">
+      <UniqueIdentifier>{4d2f9e3b-2bf3-44d0-8b71-68ac135aae0a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\lib\CLM.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\FCheck.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\FDet.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\IO.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\Patch.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\PAW.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\PDM.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lib\Tracker.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\algorithm.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\alloc.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\arithm.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\array.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\cmdparser.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\convert.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\copy.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\datastructs.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\drawing.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\dxt.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\gl_core_3_1.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\glob.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\gpumat.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\lapack.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\mathfuncs.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\matmul.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\matop.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\matrix.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\opengl_interop.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\opengl_interop_deprecated.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\out.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\parallel.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\persistence.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\rand.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\stat.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\system.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\tables.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\tables_i.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\templmatch.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\utils.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\filter.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\sumpixels.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\histogram.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\color.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\imgwarp.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\avx\imgwarp_avx.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\avx2\imgwarp_avx2.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\thresh.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\smooth.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\samplers.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objdetect\cascadedetect.cpp">
+      <Filter>objdetect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objdetect\haar.cpp">
+      <Filter>objdetect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\canny.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgproc\deriv.cpp">
+      <Filter>imageproc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\FaceTracker\CLM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\FCheck.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\FDet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\IO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\Patch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\PAW.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\PDM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\Tracker.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\gl_core_3_1.hpp">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\precomp.hpp">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgproc\avx\imgwarp_avx.hpp">
+      <Filter>imageproc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\imgproc\avx2\imgwarp_avx2.hpp">
+      <Filter>imageproc</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
