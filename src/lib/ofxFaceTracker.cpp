@@ -2,6 +2,16 @@
 using namespace cv;
 using namespace FACETRACKER;
 
+IFaceTracker* IFaceTracker::New() {
+	return new ofxFaceTracker;
+}
+
+void IFaceTracker::Delete(IFaceTracker* inst) {
+	if (inst) {
+		delete inst;
+	}
+}
+
 // can be compiled with OpenMP for even faster threaded execution
 
 #define it at<int>
@@ -56,7 +66,7 @@ ofxFaceTracker::ofxFaceTracker()
 {
 }
 
-void ofxFaceTracker::setup() {
+void ofxFaceTracker::setup(const char* dir) {
 	wSize1.resize(1);
 	wSize1[0] = 7;
 	
@@ -65,13 +75,21 @@ void ofxFaceTracker::setup() {
 	wSize2[1] = 9;
 	wSize2[2] = 7;
 	
-	string ftFile = ("face2.tracker");
-	string triFile = ("face.tri");
-	string conFile = ("face.con");
-	
-	tracker.Load(ftFile.c_str());
-	tri = IO::LoadTri(triFile.c_str());
-	con = IO::LoadCon(conFile.c_str());  // not being used right now
+	int pos = 0;
+	char path[256] = { 0 };
+	if (dir && dir[0]) {
+		pos = strlen(dir);
+		strcpy(path, dir);
+		if (path[pos - 1] != '\\' || path[pos - 1] != '/')
+			path[pos++] = '/';
+	}
+
+	strcpy(path + pos, "face2.tracker");
+	tracker.Load(path);
+	strcpy(path + pos, "face.tri");
+	tri = IO::LoadTri(path);
+	strcpy(path + pos, "face.con");
+	con = IO::LoadCon(path);  // not being used right now
 }
 
 bool ofxFaceTracker::updateYUV(void* image, int width, int height) {

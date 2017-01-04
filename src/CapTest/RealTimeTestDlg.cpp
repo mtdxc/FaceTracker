@@ -52,6 +52,15 @@ CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_REALTIMETEST_DIALOG, pParent), detector("seeta_fd_frontal_v1.0.bin")
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	tracker = IFaceTracker::New();
+}
+
+CRealTimeTestDlg::~CRealTimeTestDlg()
+{
+	if (tracker) {
+		IFaceTracker::Delete(tracker);
+		tracker = NULL;
+	}
 }
 
 void CRealTimeTestDlg::DoDataExchange(CDataExchange* pDX)
@@ -164,9 +173,9 @@ void VideCallBack(BYTE* data, int width, int height, void* user) {
   if (pDlg) pDlg->OnRgbData(data, width, height);
 }
 
-int CRealTimeTestDlg::FillPolyn(DWORD rgb, ofxFaceTracker::Feature feat)
+int CRealTimeTestDlg::FillPolyn(DWORD rgb, IFaceTracker::Feature feat)
 {
-	ofPolyline polyEye = tracker.getImageFeature(feat);
+	ofPolyline polyEye = tracker->getImageFeature(feat);
 	for (auto p : polyEye.points) {
 		POINT pt = { p.x, p.y };
 		m_draw.mapPoints[rgb].push_back(pt);
@@ -187,7 +196,7 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 	switch (m_cbCheckType.GetCurSel())
 	{
 	case 0:
-		if (tracker.updateYUV(pyuv, width, height)) {
+		if (tracker->updateYUV(pyuv, width, height)) {
 			/*
 			vector<ofVec2f> pts = tracker.getImagePoints();
 			TRACE("Got %d pts\n", pts.size());
@@ -196,17 +205,17 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 				m_draw.mapPoints[RGB(255,0,0)].push_back(pt);
 			}*/
 			// 把右上眼给描点出来
-			float f = tracker.getGesture(ofxFaceTracker::MOUTH_WIDTH);
+			float f = tracker->getGesture(IFaceTracker::MOUTH_WIDTH);
 			TRACE("MOUTH_WIDTH %5.2f\n", f);
-			FillPolyn(RGB(255,0, 0), ofxFaceTracker::FACE_OUTLINE);
-			FillPolyn(RGB(0, 255, 0), ofxFaceTracker::LEFT_EYE);
-			FillPolyn(RGB(0, 0, 255), ofxFaceTracker::RIGHT_EYE);
+			FillPolyn(RGB(255,0, 0), IFaceTracker::FACE_OUTLINE);
+			FillPolyn(RGB(0, 255, 0), IFaceTracker::LEFT_EYE);
+			FillPolyn(RGB(0, 0, 255), IFaceTracker::RIGHT_EYE);
 
-			FillPolyn(RGB(0, 0, 255), ofxFaceTracker::NOSE_BRIDGE);
-			FillPolyn(RGB(0, 0, 255), ofxFaceTracker::NOSE_BASE);
+			FillPolyn(RGB(0, 0, 255), IFaceTracker::NOSE_BRIDGE);
+			FillPolyn(RGB(0, 0, 255), IFaceTracker::NOSE_BASE);
 
-			FillPolyn(RGB(0, 255, 0), ofxFaceTracker::INNER_MOUTH);
-			FillPolyn(RGB(0, 0, 255), ofxFaceTracker::OUTER_MOUTH);
+			FillPolyn(RGB(0, 255, 0), IFaceTracker::INNER_MOUTH);
+			FillPolyn(RGB(0, 0, 255), IFaceTracker::OUTER_MOUTH);
 		}
 		break;
 	case 1:
@@ -265,7 +274,7 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
     tracker.setTolerance(0.01);
     tracker.setAttempts(1);
     */
-    tracker.setup();
+    tracker->setup("");
     m_nFrame = 0;
     strfps[0] = 0;
     m_tick = GetTickCount();
@@ -291,11 +300,12 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
 
 void CRealTimeTestDlg::OnBnClickedButtonReset(){
   // TODO: 在此添加控件通知处理程序代码
-  tracker.reset();
+  tracker->reset();
 }
 
 
 #ifndef OFX_EXPORTS
+#include "FaceTracker/Tracker.h"
 //=============================================================================
 void Draw(cv::Mat &image, cv::Mat &shape, cv::Mat &con, cv::Mat &tri, cv::Mat &visi)
 {

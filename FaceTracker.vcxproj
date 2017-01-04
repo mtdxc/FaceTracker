@@ -196,11 +196,11 @@
     <ClInclude Include="include\FaceTracker\PAW.h" />
     <ClInclude Include="include\FaceTracker\PDM.h" />
     <ClInclude Include="include\FaceTracker\Tracker.h" />
+    <ClInclude Include="include\FaceTracker.h" />
     <ClInclude Include="src\core\gl_core_3_1.hpp" />
     <ClInclude Include="src\core\precomp.hpp" />
     <ClInclude Include="src\imgproc\avx2\imgwarp_avx2.hpp" />
     <ClInclude Include="src\imgproc\avx\imgwarp_avx.hpp" />
-    <ClInclude Include="src\lib\ofxcv.h" />
     <ClInclude Include="src\lib\ofxFaceTracker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

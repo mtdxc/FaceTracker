@@ -8,8 +8,7 @@
 #include "CaptureVideo.h"
 #include "DrawVideo.h"
 #include "face_detection.h"
-#include "FaceTracker/Tracker.h"
-#include "../lib/ofxFaceTracker.h"
+#include "FaceTracker.h"
 
 // CRealTimeTestDlg 对话框
 class CRealTimeTestDlg : public CDialogEx
@@ -17,13 +16,13 @@ class CRealTimeTestDlg : public CDialogEx
 // 构造
 public:
 	CRealTimeTestDlg(CWnd* pParent = NULL);	// 标准构造函数
-
+	~CRealTimeTestDlg();
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_REALTIMETEST_DIALOG };
 #endif
   void OnRgbData(BYTE* pRgb, int with, int heght);
-	int FillPolyn(DWORD rgb, ofxFaceTracker::Feature feat);
+	int FillPolyn(DWORD rgb, IFaceTracker::Feature feat);
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 
@@ -36,7 +35,7 @@ protected:
   CCaptureVideo m_capture;
   CDrawVideo m_draw;
   seeta::FaceDetection detector;
-	ofxFaceTracker tracker;
+	IFaceTracker* tracker;
 
   std::string yuv;
 	// 生成的消息映射函数

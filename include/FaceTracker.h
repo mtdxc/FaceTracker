@@ -3,6 +3,16 @@
 #include <deque>
 #include <vector>
 using std::vector;
+#if (defined WIN32 || defined _WIN32 || defined WINCE)
+#ifdef _WINDLL
+#  define OFX_EXPORTS __declspec(dllexport)
+#else
+#  define OFX_EXPORTS __declspec(dllimport)
+#endif
+#else
+#  define OFX_EXPORTS
+#endif
+
 float ofDegToRad(float degrees);
 float ofRadToDeg(float radians);
 
@@ -450,3 +460,62 @@ struct ofRectangle{
 	float height;
 };
 
+class OFX_EXPORTS IFaceTracker {
+public:
+	static IFaceTracker* New();
+	static void Delete(IFaceTracker* inst);
+
+	virtual void setup(const char* path) = 0;
+	virtual bool updateYUV(void* image, int width, int height) = 0;
+	virtual bool updateRGB(void* image, int width, int height) = 0;
+
+	virtual void reset() = 0;
+
+	virtual int size() const = 0;
+	virtual bool getFound() const = 0;
+	virtual bool getHaarFound() const = 0;
+	virtual bool getVisibility(int i) const = 0;
+
+	virtual vector<ofVec2f> getImagePoints() const = 0;
+	virtual vector<ofVec3f> getObjectPoints() const = 0;
+	virtual vector<ofVec3f> getMeanObjectPoints() const = 0;
+
+	virtual ofVec2f getImagePoint(int i) const = 0;
+	virtual ofVec3f getObjectPoint(int i) const = 0;
+	virtual ofVec3f getMeanObjectPoint(int i) const = 0;
+
+	virtual ofRectangle getHaarRectangle() const = 0;
+	virtual ofVec2f getPosition() const = 0; // pixels
+	virtual float getScale() const = 0; // arbitrary units
+	virtual ofVec3f getOrientation() const = 0; // radians
+	//virtual ofMatrix4x4 getRotationMatrix() const = 0;
+
+	enum Direction {
+		FACING_FORWARD,
+		FACING_LEFT, FACING_RIGHT,
+		FACING_UNKNOWN
+	};
+	virtual Direction getDirection() const = 0;
+
+	enum Feature {
+		LEFT_EYE_TOP, RIGHT_EYE_TOP,
+		LEFT_EYEBROW, RIGHT_EYEBROW,
+		LEFT_EYE, RIGHT_EYE,
+		LEFT_JAW, RIGHT_JAW, JAW,
+		OUTER_MOUTH, INNER_MOUTH,
+		NOSE_BRIDGE, NOSE_BASE,
+		FACE_OUTLINE, ALL_FEATURES
+	};
+	virtual ofPolyline getImageFeature(Feature feature) const = 0;
+	virtual ofPolyline getObjectFeature(Feature feature) const = 0;
+	virtual ofPolyline getMeanObjectFeature(Feature feature) const = 0;
+
+	enum Gesture {
+		MOUTH_WIDTH, MOUTH_HEIGHT,
+		LEFT_EYEBROW_HEIGHT, RIGHT_EYEBROW_HEIGHT,
+		LEFT_EYE_OPENNESS, RIGHT_EYE_OPENNESS,
+		JAW_OPENNESS,
+		NOSTRIL_FLARE
+	};
+	virtual float getGesture(Gesture gesture) const = 0;
+};

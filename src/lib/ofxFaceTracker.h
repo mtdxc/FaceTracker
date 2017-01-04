@@ -16,37 +16,28 @@
 #pragma once
 
 //#include "ofMain.h"
-#include "ofxCv.h"
+#include "FaceTracker.h"
 #include "FaceTracker/Tracker.h"
-#if (defined WIN32 || defined _WIN32 || defined WINCE)
-#ifdef _WINDLL
-#  define OFX_EXPORTS __declspec(dllexport)
-#else
-#  define OFX_EXPORTS __declspec(dllimport)
-#endif
-#else
-#  define OFX_EXPORTS
-#endif
 
-class OFX_EXPORTS ofxFaceTracker {
+class ofxFaceTracker:public IFaceTracker {
 public:
 	ofxFaceTracker();
-	void setup();
-	bool updateYUV(void* image, int width, int height);
-	bool updateRGB(void* image, int width, int height);
+	virtual void setup(const char* path);
+	virtual bool updateYUV(void* image, int width, int height);
+	virtual bool updateRGB(void* image, int width, int height);
 
 	void draw(bool drawLabels = false) const;
-	void reset();
+	virtual void reset();
 	
-	int size() const;
-	bool getFound() const;
-	bool getHaarFound() const;
-	int getAge() const;
+	virtual int size() const;
+	virtual bool getFound() const;
+	virtual bool getHaarFound() const;
+	virtual int getAge() const;
 	virtual bool getVisibility(int i) const;
 	
-	vector<ofVec2f> getImagePoints() const;
-	vector<ofVec3f> getObjectPoints() const;
-	vector<ofVec3f> getMeanObjectPoints() const;
+	virtual vector<ofVec2f> getImagePoints() const;
+	virtual vector<ofVec3f> getObjectPoints() const;
+	virtual vector<ofVec3f> getMeanObjectPoints() const;
 	
 	virtual ofVec2f getImagePoint(int i) const;
 	virtual ofVec3f getObjectPoint(int i) const;
@@ -57,7 +48,7 @@ public:
 	ofMesh getMeanObjectMesh() const;
 	template <class T> ofMesh getMesh(vector<T> points) const;
 	
-	virtual const cv::Mat& getObjectPointsMat() const;
+	const cv::Mat& getObjectPointsMat() const;
 	
 	virtual ofRectangle getHaarRectangle() const;
 	virtual ofVec2f getPosition() const; // pixels
@@ -65,34 +56,13 @@ public:
 	virtual ofVec3f getOrientation() const; // radians
 	ofMatrix4x4 getRotationMatrix() const;
 	
-	enum Direction {
-		FACING_FORWARD,
-		FACING_LEFT, FACING_RIGHT,
-		FACING_UNKNOWN
-	};
 	Direction getDirection() const;
 	
-	enum Feature {
-		LEFT_EYE_TOP, RIGHT_EYE_TOP,    
-		LEFT_EYEBROW, RIGHT_EYEBROW,
-		LEFT_EYE, RIGHT_EYE,
-		LEFT_JAW, RIGHT_JAW, JAW,
-		OUTER_MOUTH, INNER_MOUTH,
-		NOSE_BRIDGE, NOSE_BASE,
-		FACE_OUTLINE, ALL_FEATURES
-	};
-	ofPolyline getImageFeature(Feature feature) const;
-	ofPolyline getObjectFeature(Feature feature) const;
-	ofPolyline getMeanObjectFeature(Feature feature) const;
+	virtual ofPolyline getImageFeature(Feature feature) const;
+	virtual ofPolyline getObjectFeature(Feature feature) const;
+	virtual ofPolyline getMeanObjectFeature(Feature feature) const;
 	
-	enum Gesture {
-		MOUTH_WIDTH, MOUTH_HEIGHT,
-		LEFT_EYEBROW_HEIGHT, RIGHT_EYEBROW_HEIGHT,
-		LEFT_EYE_OPENNESS, RIGHT_EYE_OPENNESS,
-		JAW_OPENNESS,
-		NOSTRIL_FLARE
-	};
-	float getGesture(Gesture gesture) const;
+	virtual float getGesture(Gesture gesture) const;
 	
 	void setRescale(float rescale);
 	void setIterations(int iterations);
