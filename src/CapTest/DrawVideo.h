@@ -4,12 +4,13 @@
 #define AVLIB_DRAWVIDEO_H_
 #include <Vfw.h>
 #include <vector>
-
+#include <map>
 class CDrawVideo
 {
 public:
   std::vector<RECT> rects;
-  std::vector<POINT> points;
+	typedef std::vector<POINT> POINTS;
+  std::map<COLORREF,POINTS> mapPoints;
 //Attributes
 protected:
 	HWND m_hWnd;

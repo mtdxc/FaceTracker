@@ -23,6 +23,7 @@ public:
 	enum { IDD = IDD_REALTIMETEST_DIALOG };
 #endif
   void OnRgbData(BYTE* pRgb, int with, int heght);
+	int FillPolyn(DWORD rgb, ofxFaceTracker::Feature feat);
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 
@@ -35,12 +36,7 @@ protected:
   CCaptureVideo m_capture;
   CDrawVideo m_draw;
   seeta::FaceDetection detector;
-#ifdef OFX_EXPORTS
 	ofxFaceTracker tracker;
-#else
-	FACETRACKER::Tracker model;
-	bool failed;
-#endif
 
   std::string yuv;
 	// 生成的消息映射函数
@@ -53,4 +49,5 @@ public:
   afx_msg void OnBnClickedButtonStartPrev();
   CComboBox m_cbDevices;
   afx_msg void OnBnClickedButtonReset();
+	CComboBox m_cbCheckType;
 };

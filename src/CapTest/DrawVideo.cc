@@ -123,16 +123,18 @@ void CDrawVideo::Draw(BYTE *pBuffer,int width, int height, LPCTSTR szText)
     SelectObject(hDC, oldPen);
     DeleteObject(pen);
   }
-  if (points.size()) {
+  if (mapPoints.size()) {
 #define PT_SIZE 3
-    HGDIOBJ bush = CreateSolidBrush(RGB(255, 0, 0));
-    HGDIOBJ oldBush = ::SelectObject(hDC, bush);
-    for (POINT pt: points){
-      Ellipse(hDC, pt.x - PT_SIZE, pt.y - PT_SIZE, pt.x + PT_SIZE, pt.y + PT_SIZE);
-      //SetPixel(hDC, pt.x, pt.y, RGB(255, 0, 0));
-    }
-    SelectObject(hDC, oldBush);
-    DeleteObject(bush);
+		for (auto iter = mapPoints.begin(); iter!=mapPoints.end(); iter++){
+			HGDIOBJ bush = CreateSolidBrush(iter->first);
+			HGDIOBJ oldBush = ::SelectObject(hDC, bush);
+			for (POINT pt : iter->second) {
+				Ellipse(hDC, pt.x - PT_SIZE, pt.y - PT_SIZE, pt.x + PT_SIZE, pt.y + PT_SIZE);
+				//SetPixel(hDC, pt.x, pt.y, RGB(255, 0, 0));
+			}
+			SelectObject(hDC, oldBush);
+			DeleteObject(bush);
+		}
   }
 	ReleaseDC(m_hWnd,hDC);
 
