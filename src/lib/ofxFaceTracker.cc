@@ -1,6 +1,15 @@
-#include "ofxFaceTracker.h"
+#include "FaceTracker/ofxFaceTracker.h"
 using namespace cv;
 using namespace FACETRACKER;
+#define PI	3.14159265358979323846
+#define DEG_TO_RAD (PI/180.0)
+#define RAD_TO_DEG (180.0/PI)
+float ofDegToRad(float degrees) {
+	return degrees * DEG_TO_RAD;
+}
+float ofRadToDeg(float radians) {
+	return radians * RAD_TO_DEG;
+}
 
 IFaceTracker* IFaceTracker::New() {
 	return new ofxFaceTracker;
@@ -54,19 +63,19 @@ vector<int> ofxFaceTracker::getFeatureIndices(Feature feature) {
 		
 ofxFaceTracker::ofxFaceTracker()
 :rescale(1)
-,iterations(10) // [1-25] 1 is fast and inaccurate, 25 is slow and accurate
+,iterations(5) // [1-25] 1 is fast and inaccurate, 25 is slow and accurate
 ,clamp(3) // [0-4] 1 gives a very loose fit, 4 gives a very tight fit
 ,tolerance(.01) // [.01-1] match tolerance
 ,attempts(1) // [1-4] 1 is fast and may not find faces, 4 is slow but will find faces
 ,failed(true)
-,fcheck(true) // check for whether the tracking failed
+,fcheck(false) // check for whether the tracking failed
 ,frameSkip(-1) // how often to skip frames
 ,useInvisible(true)
 ,age(-1)
 {
 }
 
-void ofxFaceTracker::setup(const char* dir) {
+bool ofxFaceTracker::setup(const char* dir) {
 	wSize1.resize(1);
 	wSize1[0] = 7;
 	
@@ -85,20 +94,22 @@ void ofxFaceTracker::setup(const char* dir) {
 	}
 
 	strcpy(path + pos, "face2.tracker");
-	tracker.Load(path);
+	if(!tracker.Load(path))
+    return false;
 	strcpy(path + pos, "face.tri");
 	tri = IO::LoadTri(path);
 	strcpy(path + pos, "face.con");
 	con = IO::LoadCon(path);  // not being used right now
+  return true;
 }
 
-bool ofxFaceTracker::updateYUV(void* image, int width, int height) {
-	cv::Mat gray(height, width, CV_8UC1, image);
+bool ofxFaceTracker::updateYUV(void* image, int width, int height, int step) {
+	cv::Mat gray(height, width, CV_8UC1, image, step);
 	return update(gray);
 }
 
-bool ofxFaceTracker::updateRGB(void* image, int width, int height) {
-	cv::Mat img(height, width, CV_8UC3, image);
+bool ofxFaceTracker::updateRGB(void* image, int width, int height, int step) {
+	cv::Mat img(height, width, CV_8UC3, image, step);
 	// Win32图像必须上下翻转
 	//cv::flip(img, img, 0);
 	return update(img);
@@ -286,16 +297,6 @@ ofVec3f ofxFaceTracker::getOrientation() const {
 	return euler;
 }
 
-
-ofMatrix4x4 ofxFaceTracker::getRotationMatrix() const {
-	ofVec3f euler = getOrientation();
-	ofMatrix4x4 matrix;
-	matrix.makeRotationMatrix(ofRadToDeg(euler.x), ofVec3f(1,0,0),
-														ofRadToDeg(euler.y), ofVec3f(0,1,0),
-														ofRadToDeg(euler.z), ofVec3f(0,0,1));
-														return matrix;
-}
-
 ofxFaceTracker::Direction ofxFaceTracker::getDirection() const {
 	if(failed) {
 		return FACING_UNKNOWN;
@@ -306,6 +307,38 @@ ofxFaceTracker::Direction ofxFaceTracker::getDirection() const {
 		case 2: return FACING_RIGHT;
 	}
 	return FACING_UNKNOWN;
+}
+
+bool ofxFaceTracker::getFeatureRect(Feature feature, ofVec2f& center, ofRectangle& rect) const {
+	if (failed)
+		return 0;
+	
+	vector<ofVec2f> pts = getImagePoints();
+	vector<int> indices = getFeatureIndices(feature);
+	int n = 0;
+	ofRectangle rc;
+	ofVec2f sum, max, min;
+	for (int i = 0; i < indices.size(); i++) {
+		int cur = indices[i];
+		if (useInvisible || getVisibility(cur)) {
+			ofVec2f& pt = pts[cur];
+			sum += pt;
+			if (pt.x > max.x) max.x = pt.x;
+			if (pt.y > max.y) max.y = pt.y;
+			if (pt.x < min.x) min.x = pt.x;
+			if (pt.y < min.y) min.y = pt.y;
+			n++;
+		}
+	}
+	if (n) {
+		center = sum / n;
+		rect.x = min.x;
+		rect.y = min.y;
+		rect.width = max.x - min.x;
+		rect.height = max.y - min.y;
+		return true;
+	}
+	return false;
 }
 
 ofPolyline ofxFaceTracker::getImageFeature(Feature feature) const {

@@ -2,6 +2,7 @@
 
 #include <deque>
 #include <vector>
+#include <math.h>
 using std::vector;
 #if (defined WIN32 || defined _WIN32 || defined WINCE)
 #ifdef _WINDLL
@@ -10,11 +11,8 @@ using std::vector;
 #  define OFX_EXPORTS __declspec(dllimport)
 #endif
 #else
-#  define OFX_EXPORTS
+#  define OFX_EXPORTS __attribute__((visibility("default")))
 #endif
-
-float ofDegToRad(float degrees);
-float ofRadToDeg(float radians);
 
 struct ofVec2f{
 	static const int DIM = 2;
@@ -246,123 +244,6 @@ struct ofVec3f {
 	}
 };
 
-
-class ofVec4f {
-public:
-	/// \cond INTERNAL
-	static const int DIM = 4;
-	/// \endcond
-
-	float x;
-	float y;
-	float z;
-	float w;
-	float * getPtr() {
-		return (float*)&x;
-	}
-	const float * getPtr() const {
-		return (const float *)&x;
-	}
-
-	float& operator[](int n) {
-		return getPtr()[n];
-	}
-
-	float operator[](int n) const {
-		return getPtr()[n];
-	}
-
-	ofVec4f(const ofVec3f& vec) {
-		x = vec.x;
-		y = vec.y;
-		z = vec.z;
-		w = 0;
-	}
-
-	ofVec4f(const ofVec2f& vec) {
-		x = vec.x;
-		y = vec.y;
-		z = 0;
-		w = 0;
-	}
-	ofVec4f() : x(0), y(0), z(0), w(0) {}
-	ofVec4f(float _s) : x(_s), y(_s), z(_s), w(_s) {}
-	ofVec4f(float _x, float _y, float _z, float _w) : x(_x), y(_y), z(_z), w(_w) {}
-
-	void set(float _x, float _y, float _z, float _w) {
-		x = _x;
-		y = _y;
-		z = _z;
-		w = _w;
-	}
-
-	void set(const ofVec4f& vec) {
-		x = vec.x;
-		y = vec.y;
-		z = vec.z;
-		w = vec.w;
-	}
-};
-
-struct ofQuaternion {
-	//    float _v[4];
-	/// \cond INTERNAL
-	ofVec4f _v;
-	/// \endcond
-	//----------------------------------------
-	ofQuaternion::ofQuaternion() {
-		_v.set(0, 0, 0, 1);
-	}
-
-	//----------------------------------------
-	ofQuaternion::ofQuaternion(float x, float y, float z, float w) {
-		_v.set(x, y, z, w);
-	}
-
-	float length2() const {
-		return _v.x*_v.x + _v.y*_v.y + _v.z*_v.z + _v.w*_v.w;
-	}
-	void makeRotate(const ofVec3f& from, const ofVec3f& to);
-	void makeRotate(float angle, float x, float y, float z);
-	void makeRotate(float angle, const ofVec3f& vec) {
-		makeRotate(angle, vec.x, vec.y, vec.z);
-	}
-	void makeRotate(float angle1, const ofVec3f& axis1,
-		float angle2, const ofVec3f& axis2,
-		float angle3, const ofVec3f& axis3);
-
-	const ofQuaternion operator*(const ofQuaternion& rhs) const {
-		return ofQuaternion(rhs._v.w*_v.x + rhs._v.x*_v.w + rhs._v.y*_v.z - rhs._v.z*_v.y,
-			rhs._v.w*_v.y - rhs._v.x*_v.z + rhs._v.y*_v.w + rhs._v.z*_v.x,
-			rhs._v.w*_v.z + rhs._v.x*_v.y - rhs._v.y*_v.x + rhs._v.z*_v.w,
-			rhs._v.w*_v.w - rhs._v.x*_v.x - rhs._v.y*_v.y - rhs._v.z*_v.z);
-	}
-};
-
-struct ofMatrix4x4
-{
-	//	float _mat[4][4];
-
-	/// \brief The values of the matrix, stored in row-major order.
-	ofVec4f _mat[4];
-	/// \cond INTERNAL
-	// Should this be moved to private?
-	/// \endcond
-
-	/// \name Constructors
-	/// \{
-
-	/// \brief The default constructor provides an identity matrix.
-	ofMatrix4x4() {
-		makeIdentityMatrix();
-	}
-	void makeIdentityMatrix();
-	void makeRotationMatrix(float angle1, const ofVec3f& axis1,
-		float angle2, const ofVec3f& axis2,
-		float angle3, const ofVec3f& axis3);
-	void setRotate(const ofQuaternion& q);
-};
-
 enum ofPrimitiveMode {
 	OF_PRIMITIVE_TRIANGLES,
 	OF_PRIMITIVE_TRIANGLE_STRIP,
@@ -465,9 +346,9 @@ public:
 	static IFaceTracker* New();
 	static void Delete(IFaceTracker* inst);
 
-	virtual void setup(const char* path) = 0;
-	virtual bool updateYUV(void* image, int width, int height) = 0;
-	virtual bool updateRGB(void* image, int width, int height) = 0;
+	virtual bool setup(const char* path) = 0;
+	virtual bool updateYUV(void* image, int width, int height, int step =0) = 0;
+	virtual bool updateRGB(void* image, int width, int height, int step =0) = 0;
 
 	virtual void reset() = 0;
 
@@ -509,6 +390,7 @@ public:
 	virtual ofPolyline getImageFeature(Feature feature) const = 0;
 	virtual ofPolyline getObjectFeature(Feature feature) const = 0;
 	virtual ofPolyline getMeanObjectFeature(Feature feature) const = 0;
+	virtual bool getFeatureRect(Feature feature, ofVec2f& center, ofRectangle& rect) const = 0;
 
 	enum Gesture {
 		MOUTH_WIDTH, MOUTH_HEIGHT,

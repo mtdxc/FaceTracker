@@ -93,7 +93,7 @@ namespace FACETRACKER
     inline void FrameReset(){_frame = -1;}
 
     /** Load tracker from model file */
-    void Load(const char* fname);
+    bool Load(const char* fname);
 
     /** Save tracker to model file */
     void Save(const char* fname);

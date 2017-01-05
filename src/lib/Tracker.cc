@@ -54,9 +54,16 @@ void Tracker::Init(CLM &clm,FDet &fdet,MFCheck &fcheck,
   return;
 }
 //===========================================================================
-void Tracker::Load(const char* fname)
+bool Tracker::Load(const char* fname)
 {
-  ifstream s(fname); assert(s.is_open()); this->Read(s); s.close(); return;
+  bool bRet = false;
+  ifstream s(fname);
+  if(s.is_open()){
+    this->Read(s);
+    s.close();
+    bRet = true;
+  }
+  return bRet;
 }
 //===========================================================================
 void Tracker::Save(const char* fname)

@@ -22,9 +22,9 @@
 class ofxFaceTracker:public IFaceTracker {
 public:
 	ofxFaceTracker();
-	virtual void setup(const char* path);
-	virtual bool updateYUV(void* image, int width, int height);
-	virtual bool updateRGB(void* image, int width, int height);
+	virtual bool setup(const char* path);
+	virtual bool updateYUV(void* image, int width, int height, int step=0);
+	virtual bool updateRGB(void* image, int width, int height, int step=0);
 
 	void draw(bool drawLabels = false) const;
 	virtual void reset();
@@ -54,10 +54,10 @@ public:
 	virtual ofVec2f getPosition() const; // pixels
 	virtual float getScale() const; // arbitrary units
 	virtual ofVec3f getOrientation() const; // radians
-	ofMatrix4x4 getRotationMatrix() const;
 	
 	Direction getDirection() const;
-	
+
+	virtual bool getFeatureRect(Feature feature, ofVec2f& center, ofRectangle& rect) const;
 	virtual ofPolyline getImageFeature(Feature feature) const;
 	virtual ofPolyline getObjectFeature(Feature feature) const;
 	virtual ofPolyline getMeanObjectFeature(Feature feature) const;

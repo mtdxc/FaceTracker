@@ -70,11 +70,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -178,8 +178,7 @@
     <ClCompile Include="src\lib\FCheck.cc" />
     <ClCompile Include="src\lib\FDet.cc" />
     <ClCompile Include="src\lib\IO.cc" />
-    <ClCompile Include="src\lib\ofxcv.cpp" />
-    <ClCompile Include="src\lib\ofxFaceTracker.cpp" />
+    <ClCompile Include="src\lib\ofxFaceTracker.cc" />
     <ClCompile Include="src\lib\Patch.cc" />
     <ClCompile Include="src\lib\PAW.cc" />
     <ClCompile Include="src\lib\PDM.cc" />
@@ -192,6 +191,7 @@
     <ClInclude Include="include\FaceTracker\FCheck.h" />
     <ClInclude Include="include\FaceTracker\FDet.h" />
     <ClInclude Include="include\FaceTracker\IO.h" />
+    <ClInclude Include="include\FaceTracker\ofxFaceTracker.h" />
     <ClInclude Include="include\FaceTracker\Patch.h" />
     <ClInclude Include="include\FaceTracker\PAW.h" />
     <ClInclude Include="include\FaceTracker\PDM.h" />
@@ -201,7 +201,6 @@
     <ClInclude Include="src\core\precomp.hpp" />
     <ClInclude Include="src\imgproc\avx2\imgwarp_avx2.hpp" />
     <ClInclude Include="src\imgproc\avx\imgwarp_avx.hpp" />
-    <ClInclude Include="src\lib\ofxFaceTracker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
