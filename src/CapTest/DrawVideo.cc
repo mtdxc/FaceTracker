@@ -38,7 +38,6 @@ void CDrawVideo::Draw(BYTE *pBuffer,int width, int height, LPCTSTR szText)
 		return ;
 	}
 	CRect destRect;
-#if 0 // ÉìËõÏÔÊ¾
 	if(!GetClientRect(m_hWnd, &destRect))
 	{
 		DBG_INFO(GID_DRAWVDO, "unable to GetClientRect %X,%d break draw", m_hWnd, GetLastError());
@@ -58,86 +57,77 @@ void CDrawVideo::Draw(BYTE *pBuffer,int width, int height, LPCTSTR szText)
 			destRect.left, destRect.top, destRect.right, destRect.bottom);
 		m_rect = destRect;
 	}
+	float xscale = destRect.Width()*1.0 / width;
+	float yscale = destRect.Height()*1.0 / height;
 	destRect.DeflateRect(1,1);
-#else
-  destRect.right = width;
-  destRect.bottom = height;
-#endif
 	if(pBuffer)
 	{
 		bih.bmiHeader.biWidth = width;
 		bih.bmiHeader.biHeight = height;
 		bih.bmiHeader.biSizeImage=width * height * 3;
-    if (m_bUseGDI) {
-      int oldMode = SetStretchBltMode(hDC, COLORONCOLOR);
-      StretchDIBits(hDC, destRect.left, destRect.top, destRect.Width(), destRect.Height(),
-        0, 0, width, height, pBuffer, &bih, DIB_RGB_COLORS, SRCCOPY);
-      /*
-      HDC hMemDc = CreateCompatibleDC(hDC);
-      HBITMAP hBitmap = CreateDIBitmap(hDC, &bih, CBM_INIT, pBuffer, &bih, DIB_RGB_COLORS);
-      HGDIOBJ hOldBmp = SelectObject(hMemDc, hBitmap);
-      StretchBlt(hDC, destRect.left, destRect.top, destRect.Width(), destRect.Height(),
-        hMemDc, 0, 0, width, height, SRCCOPY);
-      DeleteObject(SelectObject(hMemDc, hOldBmp));
-      DeleteDC(hMemDc);
-      */
-      SetStretchBltMode(hDC, oldMode);
-    }
-    else if (!::DrawDibDraw(m_hDib,
-      hDC,
-      destRect.left, // dest : left pos
-      destRect.top, // dest : top pos
-			destRect.Width(), // don't zoom x
-			destRect.Height(), // don't zoom y
-			&bih.bmiHeader, // bmp header info
-			pBuffer,    // bmp data
-			0, // dest : left pos
-			0, // dest : top pos
-			width, // don't zoom x
-			height, // don't zoom y
-			DDF_NOTKEYFRAME ))   // use prev params....//DDF_SAME_DRAW
-				DBG_INFO(GID_DRAWVDO, "DrawDibDraw %X error", m_hWnd);
+		if (m_bUseGDI) {
+			int oldMode = SetStretchBltMode(hDC, COLORONCOLOR);
+			StretchDIBits(hDC, destRect.left, destRect.top, destRect.Width(), destRect.Height(),
+				0, 0, width, height, pBuffer, &bih, DIB_RGB_COLORS, SRCCOPY);
+			SetStretchBltMode(hDC, oldMode);
+	}
+	else if (!::DrawDibDraw(m_hDib,
+		hDC,
+		destRect.left, // dest : left pos
+		destRect.top, // dest : top pos
+		destRect.Width(), // don't zoom x
+		destRect.Height(), // don't zoom y
+		&bih.bmiHeader, // bmp header info
+		pBuffer,    // bmp data
+		0, // dest : left pos
+		0, // dest : top pos
+		width, // don't zoom x
+		height, // don't zoom y
+		DDF_NOTKEYFRAME ))   // use prev params....//DDF_SAME_DRAW
+			DBG_INFO(GID_DRAWVDO, "DrawDibDraw %X error", m_hWnd);
 
 	}
 	// m_desRect.top = m_desRect.bottom - 20;
 	if(szText && szText[0]){
 		if(1)//GetIniInt("View", "TransText", 0))
-    {
+	{
 			SetBkMode(hDC, TRANSPARENT);
 			SetTextColor(hDC, 0xffffff);
 		}
 		// TextOut(hDC, destRect.left+2, destRect.bottom - 20, szText, strlen(szText));
 		DrawText(hDC, szText, -1, destRect, DT_BOTTOM|DT_SINGLELINE);
 	}
-  if (rects.size()) {
-    HGDIOBJ bush = GetStockObject(NULL_BRUSH);
-    HPEN pen = CreatePen(PS_DASH, 5, RGB(255, 0, 0));
-    HGDIOBJ oldPen = ::SelectObject(hDC, pen);
-    HGDIOBJ oldBush = ::SelectObject(hDC, bush);
-    for (auto rc : rects) {
-      //FrameRect(hDC, &rc, bush);
-      //::ExtTextOut(hDC, 0, 0, ETO_OPAQUE, &rc, NULL, 0, NULL);
-      Rectangle(hDC, rc.left, rc.top, rc.right, rc.bottom);
-    }
-    SelectObject(hDC, oldBush);
-    SelectObject(hDC, oldPen);
-    DeleteObject(pen);
-  }
-  if (mapPoints.size()) {
+	if (rects.size()) {
+		HGDIOBJ bush = GetStockObject(NULL_BRUSH);
+		HPEN pen = CreatePen(PS_DASH, 5, RGB(255, 0, 0));
+		HGDIOBJ oldPen = ::SelectObject(hDC, pen);
+		HGDIOBJ oldBush = ::SelectObject(hDC, bush);
+		for (auto rc : rects) {
+			//FrameRect(hDC, &rc, bush);
+			rc.left *= xscale; rc.right *= xscale;
+			rc.top *= yscale; rc.bottom *= yscale;
+			Rectangle(hDC, rc.left, rc.top, rc.right, rc.bottom);
+		}
+		SelectObject(hDC, oldBush);
+		SelectObject(hDC, oldPen);
+		DeleteObject(pen);
+	}
+	if (mapPoints.size()) {
 #define PT_SIZE 3
 		for (auto iter = mapPoints.begin(); iter!=mapPoints.end(); iter++){
 			HGDIOBJ bush = CreateSolidBrush(iter->first);
 			HGDIOBJ oldBush = ::SelectObject(hDC, bush);
 			for (POINT pt : iter->second) {
+				pt.x *= xscale;
+				pt.y *= yscale;
 				Ellipse(hDC, pt.x - PT_SIZE, pt.y - PT_SIZE, pt.x + PT_SIZE, pt.y + PT_SIZE);
 				//SetPixel(hDC, pt.x, pt.y, RGB(255, 0, 0));
 			}
 			SelectObject(hDC, oldBush);
 			DeleteObject(bush);
 		}
-  }
+	}
 	ReleaseDC(m_hWnd,hDC);
-
 }
 
 BOOL CDrawVideo::Init( HWND hWnd )
