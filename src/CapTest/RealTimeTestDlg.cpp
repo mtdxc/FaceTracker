@@ -53,6 +53,18 @@ CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	tracker = IFaceTracker::New();
+	/* 参数设置
+	tracker.setRescale(1.0);
+	tracker.setIterations(5);
+	tracker.setClamp(3.0);
+	tracker.setTolerance(0.01);
+	tracker.setAttempts(1);
+	*/
+	if (!tracker->setup("")) {
+		MessageBox(_T("Setup Error,FaceTrack will't work!\nplease make sure model dir exist"));
+		IFaceTracker::Delete(tracker);
+		tracker = NULL;
+	}
 }
 
 CRealTimeTestDlg::~CRealTimeTestDlg()
@@ -267,14 +279,6 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
     GetDlgItem(IDC_VIDEO, &hVideo);
     m_capture.Start(m_cbDevices.GetCurSel(), NULL);// hVideo);
     m_draw.Init(hVideo);
-    /* 参数设置
-    tracker.setRescale(1.0);
-    tracker.setIterations(5);
-    tracker.setClamp(3.0);
-    tracker.setTolerance(0.01);
-    tracker.setAttempts(1);
-    */
-    tracker->setup("");
     m_nFrame = 0;
     strfps[0] = 0;
     m_tick = GetTickCount();
