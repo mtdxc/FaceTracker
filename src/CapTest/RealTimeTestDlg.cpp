@@ -12,7 +12,8 @@
 #define new DEBUG_NEW
 #endif
 
-#pragma comment(lib, "FaceDetection.lib");
+#pragma comment(lib, "FaceDetection.lib")
+#pragma comment(lib, "FaceAlignment.lib")
 #pragma comment(lib,"FaceTracker.lib")
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -49,7 +50,7 @@ END_MESSAGE_MAP()
 
 // CRealTimeTestDlg 对话框
 CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(IDD_REALTIMETEST_DIALOG, pParent), detector("seeta_fd_frontal_v1.0.bin")
+	: CDialogEx(IDD_REALTIMETEST_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	tracker = IFaceTracker::New();
@@ -60,10 +61,25 @@ CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
 	tracker.setTolerance(0.01);
 	tracker.setAttempts(1);
 	*/
-	if (!tracker->setup("")) {
+
+	char szPath[MAX_PATH] = {0};
+	GetModuleFileNameA(NULL, config_path, MAX_PATH);
+	char* ext = strrchr(config_path, '.');
+	if (ext)
+		strcpy(ext + 1, "ini");
+	GetPrivateProfileStringA("Model", "Dir", "model", szPath, MAX_PATH, config_path);
+	WritePrivateProfileStringA("Model", "Dir", szPath, config_path);
+	if (!tracker->setup(szPath)) {
 		MessageBox(_T("Setup Error,FaceTrack will't work!\nplease make sure model dir exist"));
 		IFaceTracker::Delete(tracker);
 		tracker = NULL;
+	}
+	else {
+		int n = strlen(szPath); szPath[n++] = '/';
+		strcpy(szPath + n, "seeta_fd_frontal_v1.0.bin");
+		face_detector.reset(new seeta::FaceDetection(szPath));
+		strcpy(szPath + n, "seeta_fa_v1.1.bin");
+		point_detector.reset(new seeta::FaceAlignment(szPath));
 	}
 }
 
@@ -80,6 +96,7 @@ void CRealTimeTestDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_COMBO_DEVICES, m_cbDevices);
 	DDX_Control(pDX, IDC_COMBO_CHECKTYPE, m_cbCheckType);
+	DDX_Control(pDX, IDC_CHECK_BEAUTIFUL, m_btnBeatiful);
 }
 
 BEGIN_MESSAGE_MAP(CRealTimeTestDlg, CDialogEx)
@@ -228,10 +245,12 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 
 			FillPolyn(RGB(0, 255, 0), IFaceTracker::INNER_MOUTH);
 			FillPolyn(RGB(0, 0, 255), IFaceTracker::OUTER_MOUTH);
+			if (m_btnBeatiful.GetCheck())
+				tracker->updateRGB(pRgb, width, height);
 		}
 		break;
 	case 1:
-	{
+	if(face_detector && point_detector){
 		seeta::ImageData img_data;
 		// yuv通道数据
 		img_data.data = pyuv;
@@ -239,12 +258,19 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 		img_data.height = height;
 		img_data.num_channels = 1;
 
-		std::vector<seeta::FaceInfo> faces = detector.Detect(img_data);
+		std::vector<seeta::FaceInfo> faces = face_detector->Detect(img_data);
 		m_draw.rects.resize(faces.size());
 		for (int i = 0; i < faces.size(); i++)
 		{
 			m_draw.rects[i] = RECT{ faces[i].bbox.x, faces[i].bbox.y,
 				faces[i].bbox.x + faces[i].bbox.width, faces[i].bbox.y + faces[i].bbox.height };
+
+			seeta::FacialLandmark points[5];
+			point_detector->PointDetectLandmarks(img_data, faces[i], points);
+			for (int i = 0; i < 5; i++) {
+				POINT pt{ points[i].x, points[i].y };
+				m_draw.mapPoints[RGB(255, 0, 0)].push_back(pt);
+			}
 		}
 	}
 		break;
@@ -293,10 +319,18 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
     * Set score threshold of detected faces (Default: 2.0)
     - `face_detector.SetScoreThresh(thresh);`
     */
-    detector.SetMinFaceSize(80);
-    detector.SetScoreThresh(2.f);
-    detector.SetImagePyramidScaleFactor(0.8f);
-    detector.SetWindowStep(4, 4);
+		if (face_detector) {
+			char szValue[32];
+			int n = GetPrivateProfileIntA("FaceDetect", "MinFaceSize", 80, config_path);
+			face_detector->SetMinFaceSize(n);
+			GetPrivateProfileStringA("FaceDetect", "ScoreThresh", "2.0", szValue, 32, config_path);
+			face_detector->SetScoreThresh(atof(szValue));
+			GetPrivateProfileStringA("FaceDetect", "ImagePyramidScaleFactor", "0.8", szValue, 32, config_path);
+			face_detector->SetImagePyramidScaleFactor(atof(szValue));
+			face_detector->SetWindowStep(
+				GetPrivateProfileIntA("FaceDetect", "StepX", 4, config_path),
+				GetPrivateProfileIntA("FaceDetect", "StepY", 4, config_path));
+		}
 
     btn->SetWindowText(_T("Stop Test"));
   }

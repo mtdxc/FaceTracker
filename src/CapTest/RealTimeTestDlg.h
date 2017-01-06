@@ -8,8 +8,9 @@
 #include "CaptureVideo.h"
 #include "DrawVideo.h"
 #include "face_detection.h"
+#include "face_alignment.h"
 #include "FaceTracker.h"
-
+#include <memory>
 // CRealTimeTestDlg 对话框
 class CRealTimeTestDlg : public CDialogEx
 {
@@ -28,13 +29,16 @@ public:
 
 // 实现
 protected:
+  char config_path[MAX_PATH];
   TCHAR strfps[32];
   DWORD m_tick;
   int m_nFrame;
   HICON m_hIcon;
   CCaptureVideo m_capture;
   CDrawVideo m_draw;
-  seeta::FaceDetection detector;
+  std::unique_ptr<seeta::FaceDetection> face_detector;
+  std::unique_ptr<seeta::FaceAlignment> point_detector;
+
 	IFaceTracker* tracker;
 
   std::string yuv;
@@ -48,5 +52,6 @@ public:
   afx_msg void OnBnClickedButtonStartPrev();
   CComboBox m_cbDevices;
   afx_msg void OnBnClickedButtonReset();
-	CComboBox m_cbCheckType;
+  CComboBox m_cbCheckType;
+  CButton m_btnBeatiful;
 };
