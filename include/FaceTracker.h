@@ -400,4 +400,14 @@ public:
 		NOSTRIL_FLARE
 	};
 	virtual float getGesture(Gesture gesture) const = 0;
+
+	// setting interface
+	virtual void setRescale(float rescale) = 0;
+	virtual void setIterations(int iterations) = 0;
+	virtual void setClamp(float clamp) = 0;
+	virtual void setTolerance(float tolerance) = 0;
+	virtual void setAttempts(int attempts) = 0;
+	virtual void setUseInvisible(bool useInvisible) = 0;
+	virtual void setHaarMinSize(float minSize) = 0;
+
 };

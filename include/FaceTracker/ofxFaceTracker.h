@@ -19,7 +19,7 @@
 #include "FaceTracker.h"
 #include "FaceTracker/Tracker.h"
 
-class ofxFaceTracker:public IFaceTracker {
+class ofxFaceTracker : public IFaceTracker {
 public:
 	ofxFaceTracker();
 	virtual bool setup(const char* path);

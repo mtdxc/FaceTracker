@@ -29,7 +29,6 @@ public:
 
 // й╣ож
 protected:
-  char config_path[MAX_PATH];
   TCHAR strfps[32];
   DWORD m_tick;
   int m_nFrame;

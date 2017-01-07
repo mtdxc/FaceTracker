@@ -7,7 +7,9 @@
 #include "RealTimeTestDlg.h"
 #include "afxdialogex.h"
 #include "convert.h"
-
+#include "Ini.h"
+#define SK_FACEDECT "FaceDetect"
+#define SK_FACETRACKER "FaceTracker"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -52,21 +54,19 @@ CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	tracker = IFaceTracker::New();
-	/* 参数设置
-	tracker.setRescale(1.0);
-	tracker.setIterations(5);
-	tracker.setClamp(3.0);
-	tracker.setTolerance(0.01);
-	tracker.setAttempts(1);
-	*/
+	if (tracker) {
+		IFaceTracker* pTracker = tracker;
+		/* 参数设置 */
+		pTracker->setRescale(GetIniFloat(SK_FACETRACKER, "Rescale", 1.0));
+		pTracker->setIterations(GetIniInt(SK_FACETRACKER, "Iterations",5));
+		pTracker->setClamp(GetIniFloat(SK_FACETRACKER, "Clamp", 3.0));
+		pTracker->setTolerance(GetIniFloat(SK_FACETRACKER, "Tolerance", 0.01));
+		pTracker->setAttempts(GetIniInt(SK_FACETRACKER,"Attempts", 1));
+	}
 
-	char szPath[MAX_PATH] = {0};
-	GetModuleFileNameA(NULL, config_path, MAX_PATH);
-	char* ext = strrchr(config_path, '.');
-	if (ext)
-		strcpy(ext + 1, "ini");
-	GetPrivateProfileStringA("Model", "Dir", "model", szPath, MAX_PATH, config_path);
-	WritePrivateProfileStringA("Model", "Dir", szPath, config_path);
+	std::string path = GetIniStr("Model", "Dir", "model");
+	char szPath[MAX_PATH];
+	strcpy(szPath, path.c_str());
 	if (!tracker->setup(szPath)) {
 		MessageBox(_T("Setup Error,FaceTrack will't work!\nplease make sure model dir exist"));
 		IFaceTracker::Delete(tracker);
@@ -318,16 +318,13 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
     - `face_detector.SetScoreThresh(thresh);`
     */
 		if (face_detector) {
-			char szValue[32];
-			int n = GetPrivateProfileIntA("FaceDetect", "MinFaceSize", 80, config_path);
-			face_detector->SetMinFaceSize(n);
-			GetPrivateProfileStringA("FaceDetect", "ScoreThresh", "2.0", szValue, 32, config_path);
-			face_detector->SetScoreThresh(atof(szValue));
-			GetPrivateProfileStringA("FaceDetect", "ImagePyramidScaleFactor", "0.8", szValue, 32, config_path);
-			face_detector->SetImagePyramidScaleFactor(atof(szValue));
+			face_detector->SetMinFaceSize(GetIniInt(SK_FACEDECT, "MinFaceSize", 80));
+			face_detector->SetScoreThresh(GetIniFloat(SK_FACEDECT, "ScoreThresh", 2.0));
+			face_detector->SetImagePyramidScaleFactor(
+				GetIniFloat(SK_FACEDECT, "ImagePyramidScaleFactor", 0.8));
 			face_detector->SetWindowStep(
-				GetPrivateProfileIntA("FaceDetect", "StepX", 4, config_path),
-				GetPrivateProfileIntA("FaceDetect", "StepY", 4, config_path));
+				GetIniInt(SK_FACEDECT, "StepX", 4),
+				GetIniInt(SK_FACEDECT, "StepY", 4));
 		}
 
     btn->SetWindowText(_T("Stop Test"));

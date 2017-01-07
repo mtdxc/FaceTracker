@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tracker", "Tracker.vcxproj"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaceTracker", "FaceTracker.vcxproj", "{884649FA-7C0C-4E43-A8C5-8D66D86AD950}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CapTest", "src\CapTest\CapTest.vcxproj", "{99520458-EAEA-47E5-BE72-0B1BABA66A1C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CapTest", "CapTest\CapTest.vcxproj", "{99520458-EAEA-47E5-BE72-0B1BABA66A1C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{884649FA-7C0C-4E43-A8C5-8D66D86AD950} = {884649FA-7C0C-4E43-A8C5-8D66D86AD950}
 	EndProjectSection
