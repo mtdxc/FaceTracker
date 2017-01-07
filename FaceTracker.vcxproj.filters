@@ -37,6 +37,12 @@
     <Filter Include="seeta\util">
       <UniqueIdentifier>{119cfaf6-037b-4bd0-b152-e88cc64c843b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Tracker">
+      <UniqueIdentifier>{3d0ffce4-bc4d-4089-9c5a-00a3beacb28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="seeta\tools">
+      <UniqueIdentifier>{9794740a-e1aa-489d-a235-99722ff30a1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lib\CLM.cc">
@@ -201,12 +207,6 @@
     <ClCompile Include="src\seeta\cfan.cpp">
       <Filter>seeta</Filter>
     </ClCompile>
-    <ClCompile Include="src\seeta\face_alignment.cpp">
-      <Filter>seeta</Filter>
-    </ClCompile>
-    <ClCompile Include="src\seeta\face_detection.cpp">
-      <Filter>seeta</Filter>
-    </ClCompile>
     <ClCompile Include="src\seeta\fust.cpp">
       <Filter>seeta</Filter>
     </ClCompile>
@@ -240,32 +240,62 @@
     <ClCompile Include="src\seeta\util\nms.cpp">
       <Filter>seeta\util</Filter>
     </ClCompile>
+    <ClCompile Include="src\seeta\bias_adder_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\blob.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\bn_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\common_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\conv_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\eltwise_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\inner_product_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\log.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\math_functions.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\max_pooling_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\pad_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\spatial_transform_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\tform_maker_net.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\tools\aligner.cpp">
+      <Filter>seeta\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\tools\face_identification.cpp">
+      <Filter>seeta\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\face_alignment.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\face_detection.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\FaceTracker\CLM.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FaceTracker\FCheck.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FaceTracker\FDet.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FaceTracker\IO.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FaceTracker\Patch.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FaceTracker\PAW.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FaceTracker\PDM.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FaceTracker\Tracker.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\gl_core_3_1.hpp">
       <Filter>core</Filter>
     </ClInclude>
@@ -284,14 +314,46 @@
     <ClInclude Include="include\FaceTracker\ofxFaceTracker.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\common.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\face_alignment.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\face_detection.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\face_identification.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\CLM.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\FCheck.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\FDet.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\IO.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\Patch.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\PAW.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\PDM.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FaceTracker\Tracker.h">
+      <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\seeta\CMakeLists.txt">
+      <Filter>seeta</Filter>
+    </Text>
   </ItemGroup>
 </Project>

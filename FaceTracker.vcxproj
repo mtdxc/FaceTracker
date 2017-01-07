@@ -185,18 +185,34 @@
     <ClCompile Include="src\lib\Tracker.cc" />
     <ClCompile Include="src\objdetect\cascadedetect.cpp" />
     <ClCompile Include="src\objdetect\haar.cpp" />
+    <ClCompile Include="src\seeta\bias_adder_net.cpp" />
+    <ClCompile Include="src\seeta\blob.cpp" />
+    <ClCompile Include="src\seeta\bn_net.cpp" />
     <ClCompile Include="src\seeta\cfan.cpp" />
     <ClCompile Include="src\seeta\classifier\lab_boosted_classifier.cpp" />
     <ClCompile Include="src\seeta\classifier\mlp.cpp" />
     <ClCompile Include="src\seeta\classifier\surf_mlp.cpp" />
+    <ClCompile Include="src\seeta\common_net.cpp" />
+    <ClCompile Include="src\seeta\conv_net.cpp" />
+    <ClCompile Include="src\seeta\eltwise_net.cpp" />
     <ClCompile Include="src\seeta\face_alignment.cpp" />
     <ClCompile Include="src\seeta\face_detection.cpp" />
     <ClCompile Include="src\seeta\feat\lab_feature_map.cpp" />
     <ClCompile Include="src\seeta\feat\surf_feature_map.cpp" />
     <ClCompile Include="src\seeta\fust.cpp" />
+    <ClCompile Include="src\seeta\inner_product_net.cpp" />
     <ClCompile Include="src\seeta\io\lab_boost_model_reader.cpp" />
     <ClCompile Include="src\seeta\io\surf_mlp_model_reader.cpp" />
+    <ClCompile Include="src\seeta\log.cpp" />
+    <ClCompile Include="src\seeta\math_functions.cpp" />
+    <ClCompile Include="src\seeta\max_pooling_net.cpp" />
+    <ClCompile Include="src\seeta\net.cpp" />
+    <ClCompile Include="src\seeta\pad_net.cpp" />
     <ClCompile Include="src\seeta\sift.cpp" />
+    <ClCompile Include="src\seeta\spatial_transform_net.cpp" />
+    <ClCompile Include="src\seeta\tform_maker_net.cpp" />
+    <ClCompile Include="src\seeta\tools\aligner.cpp" />
+    <ClCompile Include="src\seeta\tools\face_identification.cpp" />
     <ClCompile Include="src\seeta\util\image_pyramid.cpp" />
     <ClCompile Include="src\seeta\util\nms.cpp" />
   </ItemGroup>
@@ -214,10 +230,14 @@
     <ClInclude Include="include\FaceTracker.h" />
     <ClInclude Include="include\face_alignment.h" />
     <ClInclude Include="include\face_detection.h" />
+    <ClInclude Include="include\face_identification.h" />
     <ClInclude Include="src\core\gl_core_3_1.hpp" />
     <ClInclude Include="src\core\precomp.hpp" />
     <ClInclude Include="src\imgproc\avx2\imgwarp_avx2.hpp" />
     <ClInclude Include="src\imgproc\avx\imgwarp_avx.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\seeta\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
