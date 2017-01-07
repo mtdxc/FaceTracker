@@ -88,7 +88,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include/seeta</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDLL;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -97,7 +97,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include/seeta</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDLL;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -108,7 +108,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include/seeta</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDLL;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -123,7 +123,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;include/seeta</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WINDLL;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -185,8 +185,23 @@
     <ClCompile Include="src\lib\Tracker.cc" />
     <ClCompile Include="src\objdetect\cascadedetect.cpp" />
     <ClCompile Include="src\objdetect\haar.cpp" />
+    <ClCompile Include="src\seeta\cfan.cpp" />
+    <ClCompile Include="src\seeta\classifier\lab_boosted_classifier.cpp" />
+    <ClCompile Include="src\seeta\classifier\mlp.cpp" />
+    <ClCompile Include="src\seeta\classifier\surf_mlp.cpp" />
+    <ClCompile Include="src\seeta\face_alignment.cpp" />
+    <ClCompile Include="src\seeta\face_detection.cpp" />
+    <ClCompile Include="src\seeta\feat\lab_feature_map.cpp" />
+    <ClCompile Include="src\seeta\feat\surf_feature_map.cpp" />
+    <ClCompile Include="src\seeta\fust.cpp" />
+    <ClCompile Include="src\seeta\io\lab_boost_model_reader.cpp" />
+    <ClCompile Include="src\seeta\io\surf_mlp_model_reader.cpp" />
+    <ClCompile Include="src\seeta\sift.cpp" />
+    <ClCompile Include="src\seeta\util\image_pyramid.cpp" />
+    <ClCompile Include="src\seeta\util\nms.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\common.h" />
     <ClInclude Include="include\FaceTracker\CLM.h" />
     <ClInclude Include="include\FaceTracker\FCheck.h" />
     <ClInclude Include="include\FaceTracker\FDet.h" />
@@ -197,6 +212,8 @@
     <ClInclude Include="include\FaceTracker\PDM.h" />
     <ClInclude Include="include\FaceTracker\Tracker.h" />
     <ClInclude Include="include\FaceTracker.h" />
+    <ClInclude Include="include\face_alignment.h" />
+    <ClInclude Include="include\face_detection.h" />
     <ClInclude Include="src\core\gl_core_3_1.hpp" />
     <ClInclude Include="src\core\precomp.hpp" />
     <ClInclude Include="src\imgproc\avx2\imgwarp_avx2.hpp" />

@@ -22,7 +22,7 @@ all_cc_files_recursively = \
  )
 
 LOCAL_MODULE := FaceTracker
-LOCAL_C_INCLUDES +=  $(LOCAL_PATH)/../include
+LOCAL_C_INCLUDES +=  $(LOCAL_PATH)/../include $(LOCAL_PATH)/../include/seeta
 LOCAL_LDLIBS := -llog
 
 SRC_PATH := $(LOCAL_PATH)/../src
@@ -30,4 +30,5 @@ LOCAL_SRC_FILES := $(SRC_PATH)/objdetect/cascadedetect.cpp $(SRC_PATH)/objdetect
 LOCAL_SRC_FILES += $(call all_cpp_files_recursively,$(SRC_PATH)/core)
 LOCAL_SRC_FILES += $(call all_cpp_files_recursively,$(SRC_PATH)/imgproc)
 LOCAL_SRC_FILES += $(call all_cc_files_recursively,$(SRC_PATH)/lib)
+LOCAL_SRC_FILES += $(call all_cpp_files_recursively,$(SRC_PATH)/seeta)
 include $(BUILD_SHARED_LIBRARY)

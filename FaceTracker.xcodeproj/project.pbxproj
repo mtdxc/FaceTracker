@@ -115,6 +115,34 @@
 		30058B091E1DE0210037873C /* arithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058A331E1DDC000037873C /* arithm.cpp */; };
 		30058B651E1DE6790037873C /* model in Resources */ = {isa = PBXBuildFile; fileRef = 30058B641E1DE6790037873C /* model */; };
 		30058B671E1DE6E40037873C /* model in Resources */ = {isa = PBXBuildFile; fileRef = 30058B641E1DE6790037873C /* model */; };
+		30058CB31E20C30F0037873C /* cfan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA11E20C30F0037873C /* cfan.cpp */; };
+		30058CB41E20C30F0037873C /* cfan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA11E20C30F0037873C /* cfan.cpp */; };
+		30058CB51E20C30F0037873C /* lab_boosted_classifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA31E20C30F0037873C /* lab_boosted_classifier.cpp */; };
+		30058CB61E20C30F0037873C /* lab_boosted_classifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA31E20C30F0037873C /* lab_boosted_classifier.cpp */; };
+		30058CB71E20C30F0037873C /* mlp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA41E20C30F0037873C /* mlp.cpp */; };
+		30058CB81E20C30F0037873C /* mlp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA41E20C30F0037873C /* mlp.cpp */; };
+		30058CB91E20C30F0037873C /* surf_mlp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA51E20C30F0037873C /* surf_mlp.cpp */; };
+		30058CBA1E20C30F0037873C /* surf_mlp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA51E20C30F0037873C /* surf_mlp.cpp */; };
+		30058CBB1E20C30F0037873C /* face_alignment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA61E20C30F0037873C /* face_alignment.cpp */; };
+		30058CBC1E20C30F0037873C /* face_alignment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA61E20C30F0037873C /* face_alignment.cpp */; };
+		30058CBD1E20C30F0037873C /* face_detection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA71E20C30F0037873C /* face_detection.cpp */; };
+		30058CBE1E20C30F0037873C /* face_detection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA71E20C30F0037873C /* face_detection.cpp */; };
+		30058CBF1E20C30F0037873C /* lab_feature_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA91E20C30F0037873C /* lab_feature_map.cpp */; };
+		30058CC01E20C30F0037873C /* lab_feature_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CA91E20C30F0037873C /* lab_feature_map.cpp */; };
+		30058CC11E20C30F0037873C /* surf_feature_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAA1E20C30F0037873C /* surf_feature_map.cpp */; };
+		30058CC21E20C30F0037873C /* surf_feature_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAA1E20C30F0037873C /* surf_feature_map.cpp */; };
+		30058CC31E20C30F0037873C /* fust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAB1E20C30F0037873C /* fust.cpp */; };
+		30058CC41E20C30F0037873C /* fust.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAB1E20C30F0037873C /* fust.cpp */; };
+		30058CC51E20C30F0037873C /* lab_boost_model_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAD1E20C30F0037873C /* lab_boost_model_reader.cpp */; };
+		30058CC61E20C30F0037873C /* lab_boost_model_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAD1E20C30F0037873C /* lab_boost_model_reader.cpp */; };
+		30058CC71E20C30F0037873C /* surf_mlp_model_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAE1E20C30F0037873C /* surf_mlp_model_reader.cpp */; };
+		30058CC81E20C30F0037873C /* surf_mlp_model_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAE1E20C30F0037873C /* surf_mlp_model_reader.cpp */; };
+		30058CC91E20C30F0037873C /* sift.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAF1E20C30F0037873C /* sift.cpp */; };
+		30058CCA1E20C30F0037873C /* sift.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CAF1E20C30F0037873C /* sift.cpp */; };
+		30058CCB1E20C30F0037873C /* image_pyramid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CB11E20C30F0037873C /* image_pyramid.cpp */; };
+		30058CCC1E20C30F0037873C /* image_pyramid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CB11E20C30F0037873C /* image_pyramid.cpp */; };
+		30058CCD1E20C30F0037873C /* nms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CB21E20C30F0037873C /* nms.cpp */; };
+		30058CCE1E20C30F0037873C /* nms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 30058CB21E20C30F0037873C /* nms.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -236,6 +264,20 @@
 		30058B0F1E1DE0210037873C /* libFaceTracker Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFaceTracker Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		30058B641E1DE6790037873C /* model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = model; sourceTree = "<group>"; };
 		30058C171E1E555F0037873C /* ofxFaceTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFaceTracker.h; sourceTree = "<group>"; };
+		30058CA11E20C30F0037873C /* cfan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cfan.cpp; sourceTree = "<group>"; };
+		30058CA31E20C30F0037873C /* lab_boosted_classifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lab_boosted_classifier.cpp; sourceTree = "<group>"; };
+		30058CA41E20C30F0037873C /* mlp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mlp.cpp; sourceTree = "<group>"; };
+		30058CA51E20C30F0037873C /* surf_mlp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surf_mlp.cpp; sourceTree = "<group>"; };
+		30058CA61E20C30F0037873C /* face_alignment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = face_alignment.cpp; sourceTree = "<group>"; };
+		30058CA71E20C30F0037873C /* face_detection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = face_detection.cpp; sourceTree = "<group>"; };
+		30058CA91E20C30F0037873C /* lab_feature_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lab_feature_map.cpp; sourceTree = "<group>"; };
+		30058CAA1E20C30F0037873C /* surf_feature_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surf_feature_map.cpp; sourceTree = "<group>"; };
+		30058CAB1E20C30F0037873C /* fust.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fust.cpp; sourceTree = "<group>"; };
+		30058CAD1E20C30F0037873C /* lab_boost_model_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lab_boost_model_reader.cpp; sourceTree = "<group>"; };
+		30058CAE1E20C30F0037873C /* surf_mlp_model_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surf_mlp_model_reader.cpp; sourceTree = "<group>"; };
+		30058CAF1E20C30F0037873C /* sift.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sift.cpp; sourceTree = "<group>"; };
+		30058CB11E20C30F0037873C /* image_pyramid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = image_pyramid.cpp; sourceTree = "<group>"; };
+		30058CB21E20C30F0037873C /* nms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nms.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +407,7 @@
 		30058AA81E1DDE820037873C /* src */ = {
 			isa = PBXGroup;
 			children = (
+				30058CA01E20C30F0037873C /* seeta */,
 				30058A911E1DDDED0037873C /* lib */,
 				30058A6B1E1DDC7F0037873C /* objdetect */,
 				30058A6A1E1DDC5F0037873C /* imgproc */,
@@ -461,6 +504,60 @@
 				30058AD01E1DDF3C0037873C /* objdetect.hpp */,
 			);
 			path = objdetect;
+			sourceTree = "<group>";
+		};
+		30058CA01E20C30F0037873C /* seeta */ = {
+			isa = PBXGroup;
+			children = (
+				30058CA11E20C30F0037873C /* cfan.cpp */,
+				30058CA21E20C30F0037873C /* classifier */,
+				30058CA61E20C30F0037873C /* face_alignment.cpp */,
+				30058CA71E20C30F0037873C /* face_detection.cpp */,
+				30058CA81E20C30F0037873C /* feat */,
+				30058CAB1E20C30F0037873C /* fust.cpp */,
+				30058CAC1E20C30F0037873C /* io */,
+				30058CAF1E20C30F0037873C /* sift.cpp */,
+				30058CB01E20C30F0037873C /* util */,
+			);
+			name = seeta;
+			path = src/seeta;
+			sourceTree = "<group>";
+		};
+		30058CA21E20C30F0037873C /* classifier */ = {
+			isa = PBXGroup;
+			children = (
+				30058CA31E20C30F0037873C /* lab_boosted_classifier.cpp */,
+				30058CA41E20C30F0037873C /* mlp.cpp */,
+				30058CA51E20C30F0037873C /* surf_mlp.cpp */,
+			);
+			path = classifier;
+			sourceTree = "<group>";
+		};
+		30058CA81E20C30F0037873C /* feat */ = {
+			isa = PBXGroup;
+			children = (
+				30058CA91E20C30F0037873C /* lab_feature_map.cpp */,
+				30058CAA1E20C30F0037873C /* surf_feature_map.cpp */,
+			);
+			path = feat;
+			sourceTree = "<group>";
+		};
+		30058CAC1E20C30F0037873C /* io */ = {
+			isa = PBXGroup;
+			children = (
+				30058CAD1E20C30F0037873C /* lab_boost_model_reader.cpp */,
+				30058CAE1E20C30F0037873C /* surf_mlp_model_reader.cpp */,
+			);
+			path = io;
+			sourceTree = "<group>";
+		};
+		30058CB01E20C30F0037873C /* util */ = {
+			isa = PBXGroup;
+			children = (
+				30058CB11E20C30F0037873C /* image_pyramid.cpp */,
+				30058CB21E20C30F0037873C /* nms.cpp */,
+			);
+			path = util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -563,6 +660,8 @@
 				30058A5D1E1DDC000037873C /* mathfuncs.cpp in Sources */,
 				30058A7C1E1DDD5B0037873C /* filter.cpp in Sources */,
 				30058AA21E1DDDFB0037873C /* ofxFaceTracker.cc in Sources */,
+				30058CBB1E20C30F0037873C /* face_alignment.cpp in Sources */,
+				30058CC31E20C30F0037873C /* fust.cpp in Sources */,
 				30058A9E1E1DDDFB0037873C /* FCheck.cc in Sources */,
 				30058A531E1DDC000037873C /* cmdparser.cpp in Sources */,
 				30058A631E1DDC000037873C /* out.cpp in Sources */,
@@ -573,22 +672,29 @@
 				30058A641E1DDC000037873C /* parallel.cpp in Sources */,
 				30058A561E1DDC000037873C /* datastructs.cpp in Sources */,
 				30058A651E1DDC000037873C /* persistence.cpp in Sources */,
+				30058CB51E20C30F0037873C /* lab_boosted_classifier.cpp in Sources */,
 				30058A851E1DDD5B0037873C /* utils.cpp in Sources */,
 				30058A521E1DDC000037873C /* array.cpp in Sources */,
 				30058A671E1DDC000037873C /* stat.cpp in Sources */,
 				30058A581E1DDC000037873C /* dxt.cpp in Sources */,
 				30058AA51E1DDDFB0037873C /* PDM.cc in Sources */,
 				30058A7D1E1DDD5B0037873C /* histogram.cpp in Sources */,
+				30058CBD1E20C30F0037873C /* face_detection.cpp in Sources */,
 				30058A821E1DDD5B0037873C /* tables_i.cpp in Sources */,
+				30058CC11E20C30F0037873C /* surf_feature_map.cpp in Sources */,
 				30058A5C1E1DDC000037873C /* lapack.cpp in Sources */,
 				30058A9F1E1DDDFB0037873C /* FDet.cc in Sources */,
 				30058A7E1E1DDD5B0037873C /* imgwarp.cpp in Sources */,
+				30058CB71E20C30F0037873C /* mlp.cpp in Sources */,
+				30058CC51E20C30F0037873C /* lab_boost_model_reader.cpp in Sources */,
 				30058AA31E1DDDFB0037873C /* Patch.cc in Sources */,
 				30058A5A1E1DDC000037873C /* glob.cpp in Sources */,
 				30058AA41E1DDDFB0037873C /* PAW.cc in Sources */,
 				30058A901E1DDD9A0037873C /* haar.cpp in Sources */,
 				30058A591E1DDC000037873C /* gl_core_3_1.cpp in Sources */,
+				30058CB31E20C30F0037873C /* cfan.cpp in Sources */,
 				30058A5B1E1DDC000037873C /* gpumat.cpp in Sources */,
+				30058CC91E20C30F0037873C /* sift.cpp in Sources */,
 				30058A831E1DDD5B0037873C /* templmatch.cpp in Sources */,
 				30058A9D1E1DDDFB0037873C /* CLM.cc in Sources */,
 				30058A681E1DDC000037873C /* system.cpp in Sources */,
@@ -600,17 +706,22 @@
 				30058A5F1E1DDC000037873C /* matop.cpp in Sources */,
 				30058A621E1DDC000037873C /* opengl_interop.cpp in Sources */,
 				30058A5E1E1DDC000037873C /* matmul.cpp in Sources */,
+				30058CCD1E20C30F0037873C /* nms.cpp in Sources */,
 				30058A8B1E1DDD750037873C /* imgwarp_avx2.cpp in Sources */,
 				30058A541E1DDC000037873C /* convert.cpp in Sources */,
 				30058AA61E1DDDFB0037873C /* Tracker.cc in Sources */,
+				30058CC71E20C30F0037873C /* surf_mlp_model_reader.cpp in Sources */,
 				30058A7A1E1DDD5B0037873C /* color.cpp in Sources */,
 				30058A801E1DDD5B0037873C /* smooth.cpp in Sources */,
 				30058A601E1DDC000037873C /* matrix.cpp in Sources */,
 				30058A8F1E1DDD9A0037873C /* cascadedetect.cpp in Sources */,
 				30058A551E1DDC000037873C /* copy.cpp in Sources */,
 				30058A611E1DDC000037873C /* opengl_interop_deprecated.cpp in Sources */,
+				30058CBF1E20C30F0037873C /* lab_feature_map.cpp in Sources */,
+				30058CB91E20C30F0037873C /* surf_mlp.cpp in Sources */,
 				30058A501E1DDC000037873C /* alloc.cpp in Sources */,
 				30058A691E1DDC000037873C /* tables.cpp in Sources */,
+				30058CCB1E20C30F0037873C /* image_pyramid.cpp in Sources */,
 				30058A511E1DDC000037873C /* arithm.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,6 +734,8 @@
 				30058AD51E1DE0210037873C /* mathfuncs.cpp in Sources */,
 				30058AD61E1DE0210037873C /* filter.cpp in Sources */,
 				30058AD71E1DE0210037873C /* ofxFaceTracker.cc in Sources */,
+				30058CBC1E20C30F0037873C /* face_alignment.cpp in Sources */,
+				30058CC41E20C30F0037873C /* fust.cpp in Sources */,
 				30058AD81E1DE0210037873C /* FCheck.cc in Sources */,
 				30058AD91E1DE0210037873C /* cmdparser.cpp in Sources */,
 				30058ADA1E1DE0210037873C /* out.cpp in Sources */,
@@ -633,22 +746,29 @@
 				30058AE01E1DE0210037873C /* parallel.cpp in Sources */,
 				30058AE11E1DE0210037873C /* datastructs.cpp in Sources */,
 				30058AE21E1DE0210037873C /* persistence.cpp in Sources */,
+				30058CB61E20C30F0037873C /* lab_boosted_classifier.cpp in Sources */,
 				30058AE31E1DE0210037873C /* utils.cpp in Sources */,
 				30058AE41E1DE0210037873C /* array.cpp in Sources */,
 				30058AE51E1DE0210037873C /* stat.cpp in Sources */,
 				30058AE61E1DE0210037873C /* dxt.cpp in Sources */,
 				30058AE71E1DE0210037873C /* PDM.cc in Sources */,
 				30058AE81E1DE0210037873C /* histogram.cpp in Sources */,
+				30058CBE1E20C30F0037873C /* face_detection.cpp in Sources */,
 				30058AE91E1DE0210037873C /* tables_i.cpp in Sources */,
+				30058CC21E20C30F0037873C /* surf_feature_map.cpp in Sources */,
 				30058AEA1E1DE0210037873C /* lapack.cpp in Sources */,
 				30058AEB1E1DE0210037873C /* FDet.cc in Sources */,
 				30058AEC1E1DE0210037873C /* imgwarp.cpp in Sources */,
+				30058CB81E20C30F0037873C /* mlp.cpp in Sources */,
+				30058CC61E20C30F0037873C /* lab_boost_model_reader.cpp in Sources */,
 				30058AED1E1DE0210037873C /* Patch.cc in Sources */,
 				30058AEE1E1DE0210037873C /* glob.cpp in Sources */,
 				30058AEF1E1DE0210037873C /* PAW.cc in Sources */,
 				30058AF01E1DE0210037873C /* haar.cpp in Sources */,
 				30058AF11E1DE0210037873C /* gl_core_3_1.cpp in Sources */,
+				30058CB41E20C30F0037873C /* cfan.cpp in Sources */,
 				30058AF21E1DE0210037873C /* gpumat.cpp in Sources */,
+				30058CCA1E20C30F0037873C /* sift.cpp in Sources */,
 				30058AF31E1DE0210037873C /* templmatch.cpp in Sources */,
 				30058AF41E1DE0210037873C /* CLM.cc in Sources */,
 				30058AF51E1DE0210037873C /* system.cpp in Sources */,
@@ -660,17 +780,22 @@
 				30058AFB1E1DE0210037873C /* matop.cpp in Sources */,
 				30058AFC1E1DE0210037873C /* opengl_interop.cpp in Sources */,
 				30058AFD1E1DE0210037873C /* matmul.cpp in Sources */,
+				30058CCE1E20C30F0037873C /* nms.cpp in Sources */,
 				30058AFE1E1DE0210037873C /* imgwarp_avx2.cpp in Sources */,
 				30058AFF1E1DE0210037873C /* convert.cpp in Sources */,
 				30058B001E1DE0210037873C /* Tracker.cc in Sources */,
+				30058CC81E20C30F0037873C /* surf_mlp_model_reader.cpp in Sources */,
 				30058B011E1DE0210037873C /* color.cpp in Sources */,
 				30058B021E1DE0210037873C /* smooth.cpp in Sources */,
 				30058B031E1DE0210037873C /* matrix.cpp in Sources */,
 				30058B041E1DE0210037873C /* cascadedetect.cpp in Sources */,
 				30058B051E1DE0210037873C /* copy.cpp in Sources */,
 				30058B061E1DE0210037873C /* opengl_interop_deprecated.cpp in Sources */,
+				30058CC01E20C30F0037873C /* lab_feature_map.cpp in Sources */,
+				30058CBA1E20C30F0037873C /* surf_mlp.cpp in Sources */,
 				30058B071E1DE0210037873C /* alloc.cpp in Sources */,
 				30058B081E1DE0210037873C /* tables.cpp in Sources */,
+				30058CCC1E20C30F0037873C /* image_pyramid.cpp in Sources */,
 				30058B091E1DE0210037873C /* arithm.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,7 +844,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = include;
+				HEADER_SEARCH_PATHS = (
+					include,
+					include/seeta,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -762,7 +890,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = include;
+				HEADER_SEARCH_PATHS = (
+					include,
+					include/seeta,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;

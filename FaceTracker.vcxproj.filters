@@ -22,6 +22,21 @@
     <Filter Include="objdetect">
       <UniqueIdentifier>{4d2f9e3b-2bf3-44d0-8b71-68ac135aae0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="seeta">
+      <UniqueIdentifier>{0ba9dbb2-9155-40b5-b86f-f2c085080dbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="seeta\classifier">
+      <UniqueIdentifier>{ede92fdf-0457-45e9-92f3-642cb99a31e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="seeta\feat">
+      <UniqueIdentifier>{f617bdf8-11b4-4700-a774-91d187744d7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="seeta\io">
+      <UniqueIdentifier>{3c84d7d9-f773-4f7b-be25-b07ef53e4ae5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="seeta\util">
+      <UniqueIdentifier>{119cfaf6-037b-4bd0-b152-e88cc64c843b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lib\CLM.cc">
@@ -183,6 +198,48 @@
     <ClCompile Include="src\lib\ofxFaceTracker.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\seeta\cfan.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\face_alignment.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\face_detection.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\fust.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\sift.cpp">
+      <Filter>seeta</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\classifier\lab_boosted_classifier.cpp">
+      <Filter>seeta\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\classifier\mlp.cpp">
+      <Filter>seeta\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\classifier\surf_mlp.cpp">
+      <Filter>seeta\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\feat\lab_feature_map.cpp">
+      <Filter>seeta\feat</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\feat\surf_feature_map.cpp">
+      <Filter>seeta\feat</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\io\lab_boost_model_reader.cpp">
+      <Filter>seeta\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\io\surf_mlp_model_reader.cpp">
+      <Filter>seeta\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\util\image_pyramid.cpp">
+      <Filter>seeta\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\seeta\util\nms.cpp">
+      <Filter>seeta\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\FaceTracker\CLM.h">
@@ -225,6 +282,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\FaceTracker\ofxFaceTracker.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\face_alignment.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\face_detection.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

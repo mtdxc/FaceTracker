@@ -12,8 +12,6 @@
 #define new DEBUG_NEW
 #endif
 
-#pragma comment(lib, "FaceDetection.lib")
-#pragma comment(lib, "FaceAlignment.lib")
 #pragma comment(lib,"FaceTracker.lib")
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
