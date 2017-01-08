@@ -28,7 +28,7 @@ void RGBtoYUV420P(const BYTE * rgb,
 				  int width,
 				  int height,
 				  unsigned rgbIncrement,
-				  BOOL flip) 
+				  bool flip) 
 {
 	const unsigned planeSize = width*height;
 	const unsigned halfWidth = width >> 1;
@@ -65,7 +65,7 @@ void YUV420PtoRGB(const BYTE * srcFrameBuffer,
 				  BYTE * dstFrameBuffer,
 				  int width,
 				  int height,
-				  BOOL     flipVertical) 
+				  bool     flipVertical) 
 {
 
 	unsigned int   size  = width*height;
@@ -82,7 +82,7 @@ void YUV420PtoRGB(
   const BYTE * uplane, int stride_u,
   const BYTE * vplane, int stride_v,
   BYTE * dstFrameBuffer, int width, int height,
-  BOOL flipVertical)
+  bool flipVertical)
 {
 
   unsigned int   size = width*height;
@@ -175,4 +175,87 @@ void YUV420PtoRGB(
 
   }
 
+}
+
+const float YCbCrYRF = 0.299F;
+const float YCbCrYGF = 0.587F;
+const float YCbCrYBF = 0.114F;
+const float YCbCrCbRF = -0.168736F;
+const float YCbCrCbGF = -0.331264F;
+const float YCbCrCbBF = 0.500000F;
+const float YCbCrCrRF = 0.500000F;
+const float YCbCrCrGF = -0.418688F;
+const float YCbCrCrBF = -0.081312F;
+
+const float RGBRYF = 1.00000F;
+const float RGBRCbF = 0.0000F;
+const float RGBRCrF = 1.40200F;
+const float RGBGYF = 1.00000F;
+const float RGBGCbF = -0.34414F;
+const float RGBGCrF = -0.71414F;
+const float RGBBYF = 1.00000F;
+const float RGBBCbF = 1.77200F;
+const float RGBBCrF = 0.00000F;
+
+const int Shift = 20;
+const int HalfShiftValue = 1 << (Shift - 1);
+
+const int YCbCrYRI = (int)(YCbCrYRF * (1 << Shift) + 0.5);
+const int YCbCrYGI = (int)(YCbCrYGF * (1 << Shift) + 0.5);
+const int YCbCrYBI = (int)(YCbCrYBF * (1 << Shift) + 0.5);
+const int YCbCrCbRI = (int)(YCbCrCbRF * (1 << Shift) + 0.5);
+const int YCbCrCbGI = (int)(YCbCrCbGF * (1 << Shift) + 0.5);
+const int YCbCrCbBI = (int)(YCbCrCbBF * (1 << Shift) + 0.5);
+const int YCbCrCrRI = (int)(YCbCrCrRF * (1 << Shift) + 0.5);
+const int YCbCrCrGI = (int)(YCbCrCrGF * (1 << Shift) + 0.5);
+const int YCbCrCrBI = (int)(YCbCrCrBF * (1 << Shift) + 0.5);
+
+const int RGBRYI = (int)(RGBRYF * (1 << Shift) + 0.5);
+const int RGBRCbI = (int)(RGBRCbF * (1 << Shift) + 0.5);
+const int RGBRCrI = (int)(RGBRCrF * (1 << Shift) + 0.5);
+const int RGBGYI = (int)(RGBGYF * (1 << Shift) + 0.5);
+const int RGBGCbI = (int)(RGBGCbF * (1 << Shift) + 0.5);
+const int RGBGCrI = (int)(RGBGCrF * (1 << Shift) + 0.5);
+const int RGBBYI = (int)(RGBBYF * (1 << Shift) + 0.5);
+const int RGBBCbI = (int)(RGBBCbF * (1 << Shift) + 0.5);
+const int RGBBCrI = (int)(RGBBCrF * (1 << Shift) + 0.5);
+
+void YCbCrToRGB(BYTE* From, BYTE* To, int length)
+{
+	if (length < 1) return;
+	int Red, Green, Blue;
+	int Y, Cb, Cr;
+	int i, offset;
+	for (i = 0; i < length; i++)
+	{
+		offset = (i << 1) + i;
+		Y = From[offset]; Cb = From[offset + 1] - 128; Cr = From[offset + 2] - 128;
+		Red = Y + ((RGBRCrI * Cr + HalfShiftValue) >> Shift);
+		Green = Y + ((RGBGCbI * Cb + RGBGCrI * Cr + HalfShiftValue) >> Shift);
+		Blue = Y + ((RGBBCbI * Cb + HalfShiftValue) >> Shift);
+		if (Red > 255) Red = 255; else if (Red < 0) Red = 0;
+		if (Green > 255) Green = 255; else if (Green < 0) Green = 0;
+		if (Blue > 255) Blue = 255; else if (Blue < 0) Blue = 0;
+		offset = i << 2;
+		To[offset] = (BYTE)Blue;
+		To[offset + 1] = (BYTE)Green;
+		To[offset + 2] = (BYTE)Red;
+		To[offset + 3] = 0xff;
+	}
+}
+
+void RGBToYCbCr(BYTE* From, BYTE* To, int length)
+{
+	if (length < 1) return;
+	int Red, Green, Blue;
+	int i, offset;
+	for (i = 0; i < length; i++)
+	{
+		offset = i << 2;
+		Blue = From[offset]; Green = From[offset + 1]; Red = From[offset + 2];
+		offset = (i << 1) + i;
+		To[offset] = (BYTE)((YCbCrYRI * Red + YCbCrYGI * Green + YCbCrYBI * Blue + HalfShiftValue) >> Shift);
+		To[offset + 1] = (BYTE)(128 + ((YCbCrCbRI * Red + YCbCrCbGI * Green + YCbCrCbBI * Blue + HalfShiftValue) >> Shift));
+		To[offset + 2] = (BYTE)(128 + ((YCbCrCrRI * Red + YCbCrCrGI * Green + YCbCrCrBI * Blue + HalfShiftValue) >> Shift));
+	}
 }

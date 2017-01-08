@@ -18,24 +18,30 @@
 #define _CONVERT_H
 
 #include <stdio.h>
+#ifndef BYTE
+typedef unsigned char BYTE;
+#endif
 
 void RGBtoYUV420P(const BYTE * rgb,
 	BYTE * yuv,
 	int width,
 	int height,
 	unsigned rgbIncrement, // 3 RGB24 or 4 RGB32
-	BOOL flip);
+	bool flip);
 
 void YUV420PtoRGB(const BYTE * srcFrameBuffer,
 	BYTE * dstFrameBuffer,
 	int width,
 	int height,
-	BOOL flipVertical) ;
+	bool flipVertical) ;
 
 void YUV420PtoRGB(
   const BYTE * yplane, int stride_y,
   const BYTE * uplane, int stride_u,
   const BYTE * vplane, int stride_v,
   BYTE * rgb, int width, int height,
-  BOOL flipVertical);
+  bool flipVertical);
+
+void RGBToYCbCr(BYTE* From, BYTE* To, int length);
+void YCbCrToRGB(BYTE* From, BYTE* To, int length);
 #endif
