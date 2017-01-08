@@ -12,20 +12,20 @@ public:
 	void startWhiteSkin(float whitenlevel);
 
 	static MagicBeautify* getInstance();
+	MagicBeautify();
 	~MagicBeautify();
 
 private:
 	void Clear();
 	static MagicBeautify * instance;
-	MagicBeautify();
 
 	uint64_t *mIntegralMatrix;
 	uint64_t *mIntegralMatrixSqr;
 
 	// rgb32 原图
-	uint32_t *storedBitmapPixels;
+	uint8_t *storedBitmapPixels;
 	// 内部申明的图片
-	uint32_t *mImageData_rgb;
+	uint8_t *mImageData_rgb;
 
 	// yccbr图像(利用色度进行磨皮)
 	uint8_t *mImageData_yuv;

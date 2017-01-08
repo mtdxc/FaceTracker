@@ -76,8 +76,30 @@ CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
 		int n = strlen(szPath); szPath[n++] = '/';
 		strcpy(szPath + n, "seeta_fd_frontal_v1.0.bin");
 		face_detector.reset(new seeta::FaceDetection(szPath));
+
 		strcpy(szPath + n, "seeta_fa_v1.1.bin");
 		point_detector.reset(new seeta::FaceAlignment(szPath));
+	}
+
+	/*
+	* Set minimum and maximum size of faces to detect (Default: 20, Not Limited)
+	- `face_detector.SetMinFaceSize(size);`
+	- `face_detector.SetMaxFaceSize(size);`
+	* Set step size of sliding window (Default: 4)
+	- `face_detector.SetWindowStep(step_x, step_y);`
+	* Set scaling factor of image pyramid (0 < `factor` < 1, Default: 0.8)
+	- `face_detector.SetImagePyramidScaleFactor(factor);`
+	* Set score threshold of detected faces (Default: 2.0)
+	- `face_detector.SetScoreThresh(thresh);`
+	*/
+	if (face_detector) {
+		face_detector->SetMinFaceSize(GetIniInt(SK_FACEDECT, "MinFaceSize", 80));
+		face_detector->SetScoreThresh(GetIniFloat(SK_FACEDECT, "ScoreThresh", 2.0));
+		face_detector->SetImagePyramidScaleFactor(
+			GetIniFloat(SK_FACEDECT, "ImagePyramidScaleFactor", 0.8));
+		face_detector->SetWindowStep(
+			GetIniInt(SK_FACEDECT, "StepX", 4),
+			GetIniInt(SK_FACEDECT, "StepY", 4));
 	}
 }
 
@@ -243,8 +265,6 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 
 			FillPolyn(RGB(0, 255, 0), IFaceTracker::INNER_MOUTH);
 			FillPolyn(RGB(0, 0, 255), IFaceTracker::OUTER_MOUTH);
-			if (m_btnBeatiful.GetCheck())
-				tracker->updateRGB(pRgb, width, height);
 		}
 		break;
 	case 1:
@@ -277,7 +297,10 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 	default:
 		break;
 	}
-
+	if (m_btnBeatiful.GetCheck()) {
+		m_deautify.initMagicBeautify(pRgb, width, height);
+		m_deautify.startSkinSmooth(500);
+	}
   m_nFrame++;
   if (GetTickCount() - m_tick > 1000) {
     _stprintf(strfps, _T("FPS:%d"), m_nFrame);
@@ -306,27 +329,6 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
     m_nFrame = 0;
     strfps[0] = 0;
     m_tick = GetTickCount();
-    /*
-    * Set minimum and maximum size of faces to detect (Default: 20, Not Limited)
-    - `face_detector.SetMinFaceSize(size);`
-    - `face_detector.SetMaxFaceSize(size);`
-    * Set step size of sliding window (Default: 4)
-    - `face_detector.SetWindowStep(step_x, step_y);`
-    * Set scaling factor of image pyramid (0 < `factor` < 1, Default: 0.8)
-    - `face_detector.SetImagePyramidScaleFactor(factor);`
-    * Set score threshold of detected faces (Default: 2.0)
-    - `face_detector.SetScoreThresh(thresh);`
-    */
-		if (face_detector) {
-			face_detector->SetMinFaceSize(GetIniInt(SK_FACEDECT, "MinFaceSize", 80));
-			face_detector->SetScoreThresh(GetIniFloat(SK_FACEDECT, "ScoreThresh", 2.0));
-			face_detector->SetImagePyramidScaleFactor(
-				GetIniFloat(SK_FACEDECT, "ImagePyramidScaleFactor", 0.8));
-			face_detector->SetWindowStep(
-				GetIniInt(SK_FACEDECT, "StepX", 4),
-				GetIniInt(SK_FACEDECT, "StepY", 4));
-		}
-
     btn->SetWindowText(_T("Stop Test"));
   }
 }

@@ -8,15 +8,12 @@
 
 #define div255(x) (x * 0.003921F)
 #define abs(x) (x>=0 ? x:(-x))
-
-struct ARGB
+struct RGB
 {
-	uint8_t alpha;
-	uint8_t red;
-	uint8_t green;
 	uint8_t blue;
+	uint8_t green;
+	uint8_t red;
 };
-
 MagicBeautify* MagicBeautify::instance;
 MagicBeautify* MagicBeautify::getInstance()
 {
@@ -76,20 +73,21 @@ void MagicBeautify::Clear()
 
 void MagicBeautify::initMagicBeautify(uint8_t* argb, int width, int height){
 	LOGE("initMagicBeautify");
-	storedBitmapPixels = (uint32_t*)argb;
+	// 保持旧缓冲区引用
+	storedBitmapPixels = argb;
 
 	if (mImageWidth != width || mImageHeight != height)
 		Clear();
 	mImageWidth = width;
 	mImageHeight = height;
-
+	// 拷贝一份用于美化
 	if(mImageData_rgb == NULL)
-		mImageData_rgb = new uint32_t[mImageWidth*mImageHeight];
-	// rgb32
-	memcpy(mImageData_rgb, argb, sizeof(uint32_t) * mImageWidth * mImageHeight);
+		mImageData_rgb = new uint8_t[sizeof(RGB) * mImageWidth * mImageHeight];
+	memcpy(mImageData_rgb, argb, sizeof(RGB) * mImageWidth * mImageHeight);
+	// 转成YCbCr
 	if(mImageData_yuv == NULL)
 		mImageData_yuv = new uint8_t[mImageWidth * mImageHeight * 3];
-	RGBToYCbCr((uint8_t*)mImageData_rgb, mImageData_yuv, mImageWidth * mImageHeight);
+	RGBToYCbCr(mImageData_rgb, mImageData_yuv, mImageWidth * mImageHeight);
 	initSkinMatrix();
 	initIntegral();
 }
@@ -116,10 +114,11 @@ void MagicBeautify::_startBeauty(float smoothlevel, float whitenlevel){
 
 void MagicBeautify::_startWhiteSkin(float whitenlevel){
 	float a = log(whitenlevel);
+	RGB* pRgb = (RGB*)storedBitmapPixels;
 	for(int i = 0; i < mImageHeight; i++){
 		for(int j = 0; j < mImageWidth; j++){
 			int offset = i*mImageWidth+j;
-			ARGB* RGB = (ARGB*)(storedBitmapPixels + offset);
+			RGB* RGB = pRgb + offset;
 			if(a != 0){
 				RGB->red = 255 * (log(div255(RGB->red) * (whitenlevel - 1) + 1) / a);
 				RGB->green = 255 * (log(div255(RGB->green) * (whitenlevel - 1) + 1) / a);
@@ -169,19 +168,18 @@ void MagicBeautify::_startSkinSmooth(float smoothlevel){
 			}
 		}
 	}
-	YCbCrToRGB(mImageData_yuv, (uint8_t*)storedBitmapPixels,
-		mImageWidth * mImageHeight);
+	YCbCrToRGB(mImageData_yuv, storedBitmapPixels, mImageWidth * mImageHeight);
 }
 
 void MagicBeautify::initSkinMatrix(){
 	LOGE("initSkinMatrix");
 	if(mSkinMatrix == NULL)
 		mSkinMatrix = new uint8_t[mImageWidth * mImageHeight];
+	RGB* pRgb = (RGB*)mImageData_rgb;
 	for(int i = 0; i < mImageHeight; i++){
 		for(int j = 0; j < mImageWidth; j++){
 			int offset = i * mImageWidth + j;
-			ARGB& RGB = *(ARGB*)(&mImageData_rgb[offset]);
-			//BitmapOperation::convertIntToArgb(mImageData_rgb[offset],&RGB);
+			RGB& RGB = pRgb[offset];
 			if ((RGB.blue>95 && RGB.green>40 && RGB.red>20 &&
 					RGB.blue-RGB.red>15 && RGB.blue-RGB.green>15)||
 					(RGB.blue>200 && RGB.green>210 && RGB.red>170 &&

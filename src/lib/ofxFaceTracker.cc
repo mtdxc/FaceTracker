@@ -63,7 +63,7 @@ vector<int> ofxFaceTracker::getFeatureIndices(Feature feature) {
 		
 ofxFaceTracker::ofxFaceTracker()
 :rescale(1)
-,iterations(5) // [1-25] 1 is fast and inaccurate, 25 is slow and accurate
+,iterations(10) // [1-25] 1 is fast and inaccurate, 25 is slow and accurate
 ,clamp(3) // [0-4] 1 gives a very loose fit, 4 gives a very tight fit
 ,tolerance(.01) // [.01-1] match tolerance
 ,attempts(1) // [1-4] 1 is fast and may not find faces, 4 is slow but will find faces

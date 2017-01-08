@@ -10,6 +10,7 @@
 #include "face_detection.h"
 #include "face_alignment.h"
 #include "FaceTracker.h"
+#include "MagicBeautify.h"
 #include <memory>
 // CRealTimeTestDlg ¶Ô»°¿ò
 class CRealTimeTestDlg : public CDialogEx
@@ -35,6 +36,8 @@ protected:
   HICON m_hIcon;
   CCaptureVideo m_capture;
   CDrawVideo m_draw;
+  MagicBeautify m_deautify;
+
   std::unique_ptr<seeta::FaceDetection> face_detector;
   std::unique_ptr<seeta::FaceAlignment> point_detector;
 

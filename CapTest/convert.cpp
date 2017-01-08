@@ -228,7 +228,7 @@ void YCbCrToRGB(BYTE* From, BYTE* To, int length)
 	int i, offset;
 	for (i = 0; i < length; i++)
 	{
-		offset = (i << 1) + i;
+		offset = i * 3;
 		Y = From[offset]; Cb = From[offset + 1] - 128; Cr = From[offset + 2] - 128;
 		Red = Y + ((RGBRCrI * Cr + HalfShiftValue) >> Shift);
 		Green = Y + ((RGBGCbI * Cb + RGBGCrI * Cr + HalfShiftValue) >> Shift);
@@ -236,11 +236,11 @@ void YCbCrToRGB(BYTE* From, BYTE* To, int length)
 		if (Red > 255) Red = 255; else if (Red < 0) Red = 0;
 		if (Green > 255) Green = 255; else if (Green < 0) Green = 0;
 		if (Blue > 255) Blue = 255; else if (Blue < 0) Blue = 0;
-		offset = i << 2;
+		//offset = i << 2;
 		To[offset] = (BYTE)Blue;
 		To[offset + 1] = (BYTE)Green;
 		To[offset + 2] = (BYTE)Red;
-		To[offset + 3] = 0xff;
+		//To[offset + 3] = 0xff;
 	}
 }
 
@@ -251,9 +251,9 @@ void RGBToYCbCr(BYTE* From, BYTE* To, int length)
 	int i, offset;
 	for (i = 0; i < length; i++)
 	{
-		offset = i << 2;
+		offset = i * 3;
 		Blue = From[offset]; Green = From[offset + 1]; Red = From[offset + 2];
-		offset = (i << 1) + i;
+		//offset = (i << 1) + i;
 		To[offset] = (BYTE)((YCbCrYRI * Red + YCbCrYGI * Green + YCbCrYBI * Blue + HalfShiftValue) >> Shift);
 		To[offset + 1] = (BYTE)(128 + ((YCbCrCbRI * Red + YCbCrCbGI * Green + YCbCrCbBI * Blue + HalfShiftValue) >> Shift));
 		To[offset + 2] = (BYTE)(128 + ((YCbCrCrRI * Red + YCbCrCrGI * Green + YCbCrCrBI * Blue + HalfShiftValue) >> Shift));
