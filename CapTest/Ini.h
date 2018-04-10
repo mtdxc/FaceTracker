@@ -16,7 +16,11 @@
 typedef CString String;
 #else
 #include <string>
+#ifdef _UNICODE
+typedef std::wstring String;
+#else
 typedef std::string String;
+#endif
 #endif 
 
 String AppPath(LPCTSTR fName=NULL);

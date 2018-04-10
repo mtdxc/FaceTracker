@@ -143,11 +143,11 @@ BOOL SetIniStr(LPCTSTR sec, LPCTSTR key, LPCTSTR value)
 }
 
 BOOL SetIniFloat(LPCTSTR sec, LPCTSTR key, float value) {
-	char szFloat[32] = { 0 }; sprintf(szFloat, "%f", value);
+	TCHAR szFloat[32] = { 0 }; _stprintf(szFloat, _T("%f"), value);
 	return gIni.SetStr(sec, key, szFloat);
 }
 float GetIniFloat(LPCTSTR sec, LPCTSTR key, float def) {
-	char szFloat[32] = { 0 }; sprintf(szFloat, "%f", def);
+  TCHAR szFloat[32] = { 0 }; _stprintf(szFloat, _T("%f"), def);
 	String ret = gIni.GetStr(sec, key, szFloat);
-	return atof(ret.c_str());
+	return _ttof(ret.c_str());
 }

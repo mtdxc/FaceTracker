@@ -8,8 +8,8 @@
 #include "afxdialogex.h"
 #include "convert.h"
 #include "Ini.h"
-#define SK_FACEDECT "FaceDetect"
-#define SK_FACETRACKER "FaceTracker"
+#define SK_FACEDECT _T("FaceDetect")
+#define SK_FACETRACKER _T("FaceTracker")
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -52,19 +52,19 @@ END_MESSAGE_MAP()
 CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_REALTIMETEST_DIALOG, pParent)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+  USES_CONVERSION;
+  m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	tracker = IFaceTracker::New();
 	if (tracker) {
 		IFaceTracker* pTracker = tracker;
 		/* ²ÎÊýÉèÖÃ */
-		pTracker->setRescale(GetIniFloat(SK_FACETRACKER, "Rescale", 1.0));
-		pTracker->setIterations(GetIniInt(SK_FACETRACKER, "Iterations",5));
-		pTracker->setClamp(GetIniFloat(SK_FACETRACKER, "Clamp", 3.0));
-		pTracker->setTolerance(GetIniFloat(SK_FACETRACKER, "Tolerance", 0.01));
-		pTracker->setAttempts(GetIniInt(SK_FACETRACKER,"Attempts", 1));
+		pTracker->setRescale(GetIniFloat(SK_FACETRACKER, _T("Rescale"), 1.0));
+    pTracker->setIterations(GetIniInt(SK_FACETRACKER, _T("Iterations"), 5));
+    pTracker->setClamp(GetIniFloat(SK_FACETRACKER, _T("Clamp"), 3.0));
+    pTracker->setTolerance(GetIniFloat(SK_FACETRACKER, _T("Tolerance"), 0.01));
+    pTracker->setAttempts(GetIniInt(SK_FACETRACKER, _T("Attempts"), 1));
 	}
-
-	std::string path = GetIniStr("Model", "Dir", "model");
+  std::string path = T2A(GetIniStr(_T("Model"), _T("Dir"), _T("model")).c_str());
 	char szPath[MAX_PATH];
 	strcpy(szPath, path.c_str());
 	if (!tracker->setup(szPath)) {
@@ -93,13 +93,13 @@ CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
 	- `face_detector.SetScoreThresh(thresh);`
 	*/
 	if (face_detector) {
-		face_detector->SetMinFaceSize(GetIniInt(SK_FACEDECT, "MinFaceSize", 80));
-		face_detector->SetScoreThresh(GetIniFloat(SK_FACEDECT, "ScoreThresh", 2.0));
+    face_detector->SetMinFaceSize(GetIniInt(SK_FACEDECT, _T("MinFaceSize"), 80));
+    face_detector->SetScoreThresh(GetIniFloat(SK_FACEDECT, _T("ScoreThresh"), 2.0));
 		face_detector->SetImagePyramidScaleFactor(
-			GetIniFloat(SK_FACEDECT, "ImagePyramidScaleFactor", 0.8));
+      GetIniFloat(SK_FACEDECT, _T("ImagePyramidScaleFactor"), 0.8));
 		face_detector->SetWindowStep(
-			GetIniInt(SK_FACEDECT, "StepX", 4),
-			GetIniInt(SK_FACEDECT, "StepY", 4));
+      GetIniInt(SK_FACEDECT, _T("StepX"), 4),
+      GetIniInt(SK_FACEDECT, _T("StepY"), 4));
 	}
 }
 

@@ -58,41 +58,41 @@ protected:
 class CCaptureVideo //: public CWnd 
 {
 public:
-	void SetSize(int width, int height, UINT timeFmt=DT_BOTTOM|DT_SINGLELINE);
-	void SetCallBack(DataCallBack cb, void* user);
-    /*
-    初始化视频捕捉
-    @param iDeviceID 设备ID 
-    @param hWnd 本地预览窗口,如为NULL则隐藏本地预览窗口
-    @return HRESULT 
-    */
-    HRESULT Start(int iDeviceID, HWND hWnd);
-	// 停止视频捕捉
-	void Stop();
+  void SetSize(int width, int height, UINT timeFmt = DT_BOTTOM | DT_SINGLELINE);
+  void SetCallBack(DataCallBack cb, void* user);
+  /*
+  初始化视频捕捉
+  @param iDeviceID 设备ID
+  @param hWnd 本地预览窗口,如为NULL则隐藏本地预览窗口
+  @return HRESULT
+  */
+  HRESULT Start(int iDeviceID, HWND hWnd);
+  // 停止视频捕捉
+  void Stop();
   bool started() { return m_pGB != NULL; }
-	typedef std::vector<CString> DevList;
-	/// 把视频设备枚举到列表控件中
-    static int EnumDevices(HWND hList);
-	static int EnumDevices(DevList& devList);
+  typedef std::vector<CString> DevList;
+  /// 把视频设备枚举到列表控件中
+  static int EnumDevices(HWND hList);
+  static int EnumDevices(DevList& devList);
 
-    CCaptureVideo();
-    virtual ~CCaptureVideo();
+  CCaptureVideo();
+  virtual ~CCaptureVideo();
 
 private:
-	CSampleGrabberCB sgCB;
-    IGraphBuilder *m_pGB;
-    ICaptureGraphBuilder2* m_pCapture;
-    IBaseFilter* m_pBF;
-    IMediaControl* m_pMC;
-    IVideoWindow* m_pVW;
-    CComPtr<ISampleGrabber> m_pGrabber;
+  CSampleGrabberCB sgCB;
+  IGraphBuilder *m_pGB;
+  ICaptureGraphBuilder2* m_pCapture;
+  IBaseFilter* m_pBF;
+  IMediaControl* m_pMC;
+  IVideoWindow* m_pVW;
+  CComPtr<ISampleGrabber> m_pGrabber;
 protected:
-    HRESULT SetVideoSize(int width, int height);
-    void FreeMediaType(AM_MEDIA_TYPE& mt);
-	void DeleteMediaType(AM_MEDIA_TYPE* pmt);
-    bool BindFilter(int deviceId, IBaseFilter **pFilter);
-    void ResizeVideoWindow(HWND hWnd);
-    HRESULT SetupVideoWindow(HWND hWnd);
-    HRESULT InitCaptureGraphBuilder();
+  HRESULT SetVideoSize(int width, int height);
+  void FreeMediaType(AM_MEDIA_TYPE& mt);
+  void DeleteMediaType(AM_MEDIA_TYPE* pmt);
+  bool BindFilter(int deviceId, IBaseFilter **pFilter);
+  void ResizeVideoWindow(HWND hWnd);
+  HRESULT SetupVideoWindow(HWND hWnd);
+  HRESULT InitCaptureGraphBuilder();
 };
 #endif // !defined(AFX_CAPTUREVIDEO_H__F5345AA4_A39F_4B07_B843_3D87C4287AA0__INCLUDED_)
