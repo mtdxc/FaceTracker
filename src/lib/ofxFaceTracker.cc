@@ -429,3 +429,22 @@ void ofxFaceTracker::addTriangleIndices(ofMesh& mesh) const {
 		}
 	}
 }
+
+bool Rgb24Blur(void* pSrc, int width, int height, int step,
+  int smooth_type, int param1, int param2, double param3, double param4)
+{
+  cv::Mat src(height, width, CV_8UC3, pSrc, step);
+  cv::Mat dst = src;// (height, width, CV_8UC3, pDst, step);
+  if (param2 <= 0)
+    param2 = param1;
+  if (smooth_type == CV_BLUR || smooth_type == CV_BLUR_NO_SCALE)
+    cv::boxFilter(src, dst, dst.depth(), cv::Size(param1, param2), cv::Point(-1, -1),
+    smooth_type == CV_BLUR, cv::BORDER_REPLICATE);
+  else if (smooth_type == CV_GAUSSIAN)
+    cv::GaussianBlur(src, dst, cv::Size(param1, param2), param3, param4, cv::BORDER_REPLICATE);
+  else if (smooth_type == CV_MEDIAN)
+    cv::medianBlur(src, dst, param1);
+  else
+    cv::bilateralFilter(src, dst, param1, param3, param4, cv::BORDER_REPLICATE);
+  return true;
+}

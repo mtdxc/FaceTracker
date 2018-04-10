@@ -8,8 +8,10 @@
 #include "afxdialogex.h"
 #include "convert.h"
 #include "Ini.h"
+
 #define SK_FACEDECT _T("FaceDetect")
 #define SK_FACETRACKER _T("FaceTracker")
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -125,6 +127,7 @@ BEGIN_MESSAGE_MAP(CRealTimeTestDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
   ON_BN_CLICKED(IDC_BUTTON_START_PREV, &CRealTimeTestDlg::OnBnClickedButtonStartPrev)
   ON_BN_CLICKED(IDC_BUTTON_RESET, &CRealTimeTestDlg::OnBnClickedButtonReset)
+  ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -165,7 +168,20 @@ BOOL CRealTimeTestDlg::OnInitDialog()
 	m_cbCheckType.AddString(_T("轮廓追踪"));
 	m_cbCheckType.AddString(_T("人脸识别"));
 	m_cbCheckType.SetCurSel(0);
+
+  m_preview.Create(NULL, 0, _T("视频预览"), WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 0, 0);
+  //m_preview.SetDefOrgin(2);
+  m_preview.SetFitMode(FALSE);
+  m_preview.SetBkColor(0x00FFFFFF);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
+}
+
+void CRealTimeTestDlg::OnDestroy()
+{
+  CDialogEx::OnDestroy();
+
+  // TODO: Add your message handler code here
+  m_capture.Stop();
 }
 
 void CRealTimeTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -217,7 +233,7 @@ HCURSOR CRealTimeTestDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-void VideCallBack(BYTE* data, int width, int height, void* user) {
+void VideoCallBack(BYTE* data, int width, int height, void* user) {
   CRealTimeTestDlg* pDlg = (CRealTimeTestDlg*)user;
   if (pDlg) pDlg->OnRgbData(data, width, height);
 }
@@ -245,7 +261,7 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 	switch (m_cbCheckType.GetCurSel())
 	{
 	case 0:
-		if (tracker->updateYUV(pyuv, width, height)) {
+    if (tracker && tracker->updateYUV(pyuv, width, height)) {
 			/*
 			vector<ofVec2f> pts = tracker.getImagePoints();
 			TRACE("Got %d pts\n", pts.size());
@@ -308,6 +324,8 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
     m_tick = GetTickCount();
   }
   m_draw.Draw(pRgb, width, height, strfps);
+  m_preview.SetText(strfps, RGB(255, 255, 255));
+  m_preview.FillBuffer(pRgb, width, height);
 }
 
 
@@ -321,7 +339,7 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
   }
   else {
     m_capture.SetSize(640, 480);
-    m_capture.SetCallBack(&VideCallBack, this);
+    m_capture.SetCallBack(&VideoCallBack, this);
     HWND hVideo = NULL;
     GetDlgItem(IDC_VIDEO, &hVideo);
     m_capture.Start(m_cbDevices.GetCurSel(), NULL);// hVideo);

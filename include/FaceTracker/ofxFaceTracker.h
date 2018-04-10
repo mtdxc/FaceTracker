@@ -18,6 +18,8 @@
 //#include "ofMain.h"
 #include "FaceTracker.h"
 #include "FaceTracker/Tracker.h"
+OFX_EXPORTS bool Rgb24Blur(void* p, int width, int height, int step,
+  int method, int arg1, int arg2, double arg3, double arg4);
 
 class ofxFaceTracker : public IFaceTracker {
 public:
