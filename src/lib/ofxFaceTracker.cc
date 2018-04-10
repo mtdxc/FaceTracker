@@ -108,8 +108,10 @@ bool ofxFaceTracker::updateYUV(void* image, int width, int height, int step) {
 	return update(gray);
 }
 
-bool ofxFaceTracker::updateRGB(void* image, int width, int height, int step) {
-	cv::Mat img(height, width, CV_8UC3, image, step);
+bool ofxFaceTracker::updateRGB(void* image, int width, int height, int bytes, int step) {
+	if (step == 0)
+		step = width * bytes;
+	cv::Mat img(height, width, CV_8UC(bytes), image, step);
 	// Win32图像必须上下翻转
 	//cv::flip(img, img, 0);
 	return update(img);

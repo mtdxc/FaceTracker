@@ -348,7 +348,7 @@ public:
 
 	virtual bool setup(const char* path) = 0;
 	virtual bool updateYUV(void* image, int width, int height, int step =0) = 0;
-	virtual bool updateRGB(void* image, int width, int height, int step =0) = 0;
+	virtual bool updateRGB(void* image, int width, int height, int bytes=3, int step =0) = 0;
 
 	virtual void reset() = 0;
 
