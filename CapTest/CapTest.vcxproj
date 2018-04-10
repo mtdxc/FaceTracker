@@ -202,6 +202,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlurWnd.h" />
     <ClInclude Include="CaptureVideo.h" />
     <ClInclude Include="convert.h" />
     <ClInclude Include="DrawVideo.h" />
@@ -215,6 +216,7 @@
     <ClInclude Include="VideoWnd.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlurWnd.cpp" />
     <ClCompile Include="CaptureVideo.cpp" />
     <ClCompile Include="convert.cpp" />
     <ClCompile Include="DrawVideo.cc" />

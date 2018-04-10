@@ -8,6 +8,7 @@
 #include "CaptureVideo.h"
 #include "DrawVideo.h"
 #include "VideoWnd.h"
+#include "BlurWnd.h"
 #include "face_detection.h"
 #include "face_alignment.h"
 #include "FaceTracker.h"
@@ -37,7 +38,7 @@ protected:
   HICON m_hIcon;
   CCaptureVideo m_capture;
   CDrawVideo m_draw;
-  CVideoWnd m_preview;
+  CBlurWnd m_preview;
   MagicBeautify m_deautify;
 
   std::unique_ptr<seeta::FaceDetection> face_detector;
