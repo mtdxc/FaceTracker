@@ -113,7 +113,7 @@ BOOL CBlurWnd::FillBuffer(BYTE* pRgb, int width, int height)
   //return CVideoWnd::FillBuffer(pRgb, width, height, m_nDefOrgin);
   if (BYTE* pDst = GetBuffer(width, height)){
     memcpy(pDst, pRgb, width*height * 3);
-    if (m_rcTacker && m_rcTacker.Width() > 3){
+    if (m_rcTacker && !m_bTracker){
       CRect rc; GetClientRect(&rc);
       float scalex = width * 1.0 / rc.Width();
       float scaley = height * 1.0 / rc.Height();
@@ -126,10 +126,21 @@ BOOL CBlurWnd::FillBuffer(BYTE* pRgb, int width, int height)
       Mat2 mat;
       mat.init(pDst + 3 * (rc.left + rc.top * width),
         rc.Width(), rc.Height(), width * 3);
-      //MSK(mat, 8);
-      //MBL(mat, 8);
-      Rgb24Blur(pDst + 3*(rc.left+ rc.top * width), rc.Width(), rc.Height(), width * 3, 
-        type_, arg1_, arg2_, arg3_, arg4_);
+      switch (type_)
+      {
+      case 5:
+        MSK(mat, arg1_);
+        break;
+      case 6:
+        MBL(mat, arg1_);
+        break;
+      default:
+        if (type_ < 5){
+          Rgb24Blur(pDst + 3 * (rc.left + rc.top * width), rc.Width(), rc.Height(), width * 3,
+            type_, arg1_, arg2_, arg3_, arg4_);
+        }
+        break;
+      }
       // 性能统计
       DWORD endTick = timeGetTime();
       m_nFrame++;

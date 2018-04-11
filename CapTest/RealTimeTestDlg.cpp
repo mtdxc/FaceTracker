@@ -134,9 +134,10 @@ BEGIN_MESSAGE_MAP(CRealTimeTestDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_DESTROY()
   ON_BN_CLICKED(IDC_BUTTON_START_PREV, &CRealTimeTestDlg::OnBnClickedButtonStartPrev)
   ON_BN_CLICKED(IDC_BUTTON_RESET, &CRealTimeTestDlg::OnBnClickedButtonReset)
-  ON_WM_DESTROY()
+  ON_CBN_SELCHANGE(IDC_COMBO_SMOOTH, &CRealTimeTestDlg::OnCbnSelchangeComboSmooth)
 END_MESSAGE_MAP()
 
 
@@ -183,6 +184,8 @@ BOOL CRealTimeTestDlg::OnInitDialog()
   m_cbSmooth.AddString(_T("GAUSSIAN"));
   m_cbSmooth.AddString(_T("MEDIAN"));
   m_cbSmooth.AddString(_T("BILATERAL"));
+  m_cbSmooth.AddString(_T("马赛克"));
+  m_cbSmooth.AddString(_T("毛玻璃"));
   m_cbSmooth.SetCurSel(2);
 
   m_preview.Create(NULL, 0, _T("视频预览"), WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 0, 0);
@@ -366,6 +369,43 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
     strfps[0] = 0;
     m_tick = GetTickCount();
     btn->SetWindowText(_T("Stop Test"));
+  }
+}
+
+void CRealTimeTestDlg::OnCbnSelchangeComboSmooth()
+{
+  // TODO: Add your control notification handler code here
+  switch (m_cbSmooth.GetCurSel())
+  {
+  case 0:
+  case 1:
+    GetDlgItem(IDC_EDIT_ARG1)->EnableWindow(1);
+    GetDlgItem(IDC_EDIT_ARG2)->EnableWindow(1);
+    GetDlgItem(IDC_EDIT_ARG3)->EnableWindow(0);
+    GetDlgItem(IDC_EDIT_ARG4)->EnableWindow(0);
+    break;
+  case 2:
+    GetDlgItem(IDC_EDIT_ARG1)->EnableWindow(1);
+    GetDlgItem(IDC_EDIT_ARG2)->EnableWindow(1);
+    GetDlgItem(IDC_EDIT_ARG3)->EnableWindow(1);
+    GetDlgItem(IDC_EDIT_ARG4)->EnableWindow(1);
+    break;
+  case 3:
+  case 5:
+  case 6:
+    GetDlgItem(IDC_EDIT_ARG1)->EnableWindow(1);
+    GetDlgItem(IDC_EDIT_ARG2)->EnableWindow(0);
+    GetDlgItem(IDC_EDIT_ARG3)->EnableWindow(0);
+    GetDlgItem(IDC_EDIT_ARG4)->EnableWindow(0);
+    break;
+  case 4:
+    GetDlgItem(IDC_EDIT_ARG1)->EnableWindow(1);
+    GetDlgItem(IDC_EDIT_ARG2)->EnableWindow(0);
+    GetDlgItem(IDC_EDIT_ARG3)->EnableWindow(1);
+    GetDlgItem(IDC_EDIT_ARG4)->EnableWindow(1);
+    break;
+  default:
+    break;
   }
 }
 

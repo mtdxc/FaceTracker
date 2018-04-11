@@ -52,14 +52,15 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	afx_msg void OnCbnSelchangeComboSmooth();
+	afx_msg void OnBnClickedButtonStartPrev();
+	afx_msg void OnBnClickedButtonReset();
+	afx_msg void OnDestroy();
 	DECLARE_MESSAGE_MAP()
 public:
-  afx_msg void OnBnClickedButtonStartPrev();
   CComboBox m_cbDevices;
-  afx_msg void OnBnClickedButtonReset();
   CComboBox m_cbCheckType;
   CButton m_btnBeatiful;
-  afx_msg void OnDestroy();
   CComboBox m_cbSmooth;
   double m_dbArg4;
   double m_dbArg3;

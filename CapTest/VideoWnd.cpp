@@ -275,9 +275,9 @@ BOOL CVideoWnd::OnEraseBkgnd(CDC* pDC)
     /*
     for (auto rc : rects) {
     //FrameRect(hDC, &rc, bush);
-    rc.left *= xscale; rc.right *= xscale;
-    rc.top *= yscale; rc.bottom *= yscale;
-    Rectangle(hDC, rc.left, rc.top, rc.right, rc.bottom);
+      rc.left *= xscale; rc.right *= xscale;
+      rc.top *= yscale; rc.bottom *= yscale;
+      Rectangle(hDC, rc.left, rc.top, rc.right, rc.bottom);
     }
     */
     pDC->SelectObject(oldpen);
