@@ -10,11 +10,16 @@ class Mat2{
   int plane_;
   uint8_t bytes_;
 public:
-  Mat2(){ Clear(); }
-  void Clear(){ addr = NULL; width_ = height_ = plane_ = bytes_ = 0; }
-  bool Init(uint8_t* base, int width, int height, int plan = 0, int bytes = 3){
+  Mat2(){ clear(); }
+
+  int width() const { return width_; }
+  int height() const { return height_; }
+  int plane() const { return plane_; }
+  void clear(){ addr = NULL; width_ = height_ = plane_ = bytes_ = 0; }
+
+  bool init(uint8_t* base, int width, int height, int plan = 0, int bytes = 3){
     if (!base){
-      Clear();
+      clear();
     }
     else if (width > 0 && height > 0 && bytes <= 4){
       addr = base;
@@ -35,9 +40,6 @@ public:
     }
     return true;
   }
-  int width() const { return width_; }
-  int height() const { return height_; }
-  int plane() const { return plane_; }
 
   uint8_t* at(int x, int y){
     //ASSERT( x>=0 && x < width_);
@@ -66,6 +68,9 @@ public:
 
 CBlurWnd::CBlurWnd()
 {
+  type_ = 2;
+  arg1_ = arg2_ = 13;
+  arg3_ = arg4_ = 32;
 }
 
 
@@ -114,12 +119,12 @@ BOOL CBlurWnd::FillBuffer(BYTE* pRgb, int width, int height)
       rc.bottom *= scaley;
       rc.top *= scaley;
       Mat2 mat;
-      mat.Init(pDst + 3 * (rc.left + rc.top * width),
+      mat.init(pDst + 3 * (rc.left + rc.top * width),
         rc.Width(), rc.Height(), width * 3);
       //MSK(mat, 8);
       //MBL(mat, 8);
       Rgb24Blur(pDst + 3*(rc.left+ rc.top * width), rc.Width(), rc.Height(), width * 3, 
-        2, 13, 0, 32, 32);
+        type_, arg1_, arg2_, arg3_, arg4_);
     }
     ReleaseBuffer();
     bRet = TRUE;

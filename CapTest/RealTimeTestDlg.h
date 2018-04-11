@@ -60,4 +60,9 @@ public:
   CComboBox m_cbCheckType;
   CButton m_btnBeatiful;
   afx_msg void OnDestroy();
+  CComboBox m_cbSmooth;
+  double m_dbArg4;
+  double m_dbArg3;
+  int m_iArg2;
+  int m_iArg1;
 };

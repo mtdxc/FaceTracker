@@ -53,6 +53,10 @@ END_MESSAGE_MAP()
 // CRealTimeTestDlg 对话框
 CRealTimeTestDlg::CRealTimeTestDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_REALTIMETEST_DIALOG, pParent)
+  , m_dbArg4(32)
+  , m_dbArg3(32)
+  , m_iArg2(0)
+  , m_iArg1(13)
 {
   USES_CONVERSION;
   m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
@@ -115,10 +119,15 @@ CRealTimeTestDlg::~CRealTimeTestDlg()
 
 void CRealTimeTestDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_COMBO_DEVICES, m_cbDevices);
-	DDX_Control(pDX, IDC_COMBO_CHECKTYPE, m_cbCheckType);
-	DDX_Control(pDX, IDC_CHECK_BEAUTIFUL, m_btnBeatiful);
+  CDialogEx::DoDataExchange(pDX);
+  DDX_Control(pDX, IDC_COMBO_DEVICES, m_cbDevices);
+  DDX_Control(pDX, IDC_COMBO_CHECKTYPE, m_cbCheckType);
+  DDX_Control(pDX, IDC_CHECK_BEAUTIFUL, m_btnBeatiful);
+  DDX_Control(pDX, IDC_COMBO_SMOOTH, m_cbSmooth);
+  DDX_Text(pDX, IDC_EDIT_ARG1, m_iArg1);
+  DDX_Text(pDX, IDC_EDIT_ARG2, m_iArg2);
+  DDX_Text(pDX, IDC_EDIT_ARG3, m_dbArg3);
+  DDX_Text(pDX, IDC_EDIT_ARG4, m_dbArg4);
 }
 
 BEGIN_MESSAGE_MAP(CRealTimeTestDlg, CDialogEx)
@@ -168,6 +177,13 @@ BOOL CRealTimeTestDlg::OnInitDialog()
 	m_cbCheckType.AddString(_T("轮廓追踪"));
 	m_cbCheckType.AddString(_T("人脸识别"));
 	m_cbCheckType.SetCurSel(0);
+
+  m_cbSmooth.AddString(_T("BLUR_NO_SCALE"));
+  m_cbSmooth.AddString(_T("BLUR"));
+  m_cbSmooth.AddString(_T("GAUSSIAN"));
+  m_cbSmooth.AddString(_T("MEDIAN"));
+  m_cbSmooth.AddString(_T("BILATERAL"));
+  m_cbSmooth.SetCurSel(2);
 
   m_preview.Create(NULL, 0, _T("视频预览"), WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 0, 0);
   //m_preview.SetDefOrgin(2);
@@ -338,6 +354,8 @@ void CRealTimeTestDlg::OnBnClickedButtonStartPrev()
     btn->SetWindowText(_T("Start Test"));
   }
   else {
+    UpdateData();
+    m_preview.SetBlurArgs(m_cbSmooth.GetCurSel(), m_iArg1, m_iArg2, m_dbArg3, m_dbArg4);
     m_capture.SetSize(640, 480);
     m_capture.SetCallBack(&VideoCallBack, this);
     HWND hVideo = NULL;
