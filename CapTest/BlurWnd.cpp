@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BlurWnd.h"
+#pragma comment(lib,"winmm.lib")
 
 #include <stdint.h>
 // 二维数组访问类
@@ -71,6 +72,9 @@ CBlurWnd::CBlurWnd()
   type_ = 2;
   arg1_ = arg2_ = 13;
   arg3_ = arg4_ = 32;
+  m_tick = 0;
+  m_nFrame = 0;
+  m_clrText = RGB(255, 255, 255);
 }
 
 
@@ -118,6 +122,7 @@ BOOL CBlurWnd::FillBuffer(BYTE* pRgb, int width, int height)
       rc.right *= scalex;
       rc.bottom *= scaley;
       rc.top *= scaley;
+      DWORD statTick = timeGetTime();
       Mat2 mat;
       mat.init(pDst + 3 * (rc.left + rc.top * width),
         rc.Width(), rc.Height(), width * 3);
@@ -125,6 +130,14 @@ BOOL CBlurWnd::FillBuffer(BYTE* pRgb, int width, int height)
       //MBL(mat, 8);
       Rgb24Blur(pDst + 3*(rc.left+ rc.top * width), rc.Width(), rc.Height(), width * 3, 
         type_, arg1_, arg2_, arg3_, arg4_);
+      // 性能统计
+      DWORD endTick = timeGetTime();
+      m_nFrame++;
+      if (endTick - m_tick > 1000) {
+        m_szText.Format(_T("%dx%d@%d %dx%d %dms"), width, height, m_nFrame, rc.Width(), rc.Height(), endTick - statTick);
+        m_tick = endTick;
+        m_nFrame = 0;
+      }
     }
     ReleaseBuffer();
     bRet = TRUE;

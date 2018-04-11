@@ -335,12 +335,12 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 	}
   m_nFrame++;
   if (GetTickCount() - m_tick > 1000) {
-    _stprintf(strfps, _T("FPS:%d"), m_nFrame);
+    _stprintf(strfps, _T("%dx%d FPS:%d"), width, height, m_nFrame);
     m_nFrame = 0;
     m_tick = GetTickCount();
+    //m_preview.SetText(strfps, RGB(255, 255, 255));
   }
   m_draw.Draw(pRgb, width, height, strfps);
-  m_preview.SetText(strfps, RGB(255, 255, 255));
   m_preview.FillBuffer(pRgb, width, height);
 }
 

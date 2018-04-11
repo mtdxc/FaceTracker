@@ -32,7 +32,7 @@ public:
 
 // й╣ож
 protected:
-  TCHAR strfps[32];
+  TCHAR strfps[64];
   DWORD m_tick;
   int m_nFrame;
   HICON m_hIcon;

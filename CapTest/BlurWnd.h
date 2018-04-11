@@ -7,6 +7,9 @@ class CBlurWnd :
   int type_;
   int arg1_, arg2_;
   double arg3_, arg4_;
+  // 统计信息
+  DWORD m_tick;
+  int m_nFrame;
 public:
   CBlurWnd();
   ~CBlurWnd();
