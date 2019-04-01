@@ -43,6 +43,9 @@
     <Filter Include="seeta\tools">
       <UniqueIdentifier>{9794740a-e1aa-489d-a235-99722ff30a1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cnn">
+      <UniqueIdentifier>{0655941f-7a11-4ff3-bea4-920a75d1d539}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\lib\CLM.cc">
@@ -294,6 +297,18 @@
     <ClCompile Include="src\seeta\face_detection.cpp">
       <Filter>seeta</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnn\facedetectcnn.cpp">
+      <Filter>cnn</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnn\facedetectcnn-floatdata.cpp">
+      <Filter>cnn</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnn\facedetectcnn-int8data.cpp">
+      <Filter>cnn</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cnn\facedetectcnn-model.cpp">
+      <Filter>cnn</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\gl_core_3_1.hpp">
@@ -349,6 +364,9 @@
     </ClInclude>
     <ClInclude Include="include\FaceTracker\Tracker.h">
       <Filter>头文件\Tracker</Filter>
+    </ClInclude>
+    <ClInclude Include="include\facedetectcnn.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -158,6 +158,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>strmiids.lib;vfw32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>

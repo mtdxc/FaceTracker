@@ -7,6 +7,7 @@
 #include "RealTimeTestDlg.h"
 #include "afxdialogex.h"
 #include "convert.h"
+#include "facedetectcnn.h"
 #include "Ini.h"
 
 #define SK_FACEDECT _T("FaceDetect")
@@ -177,6 +178,7 @@ BOOL CRealTimeTestDlg::OnInitDialog()
     m_cbDevices.SetCurSel(0);
 	m_cbCheckType.AddString(_T("ÂÖÀª×·×Ù"));
 	m_cbCheckType.AddString(_T("ÈËÁ³Ê¶±ð"));
+	m_cbCheckType.AddString(_T("cnnFace"));
 	m_cbCheckType.SetCurSel(0);
 
   m_cbSmooth.AddString(_T("BLUR_NO_SCALE"));
@@ -328,7 +330,16 @@ void CRealTimeTestDlg::OnRgbData(BYTE* pRgb, int width, int height)
 	}
 		break;
 	case 2:
+	{
+		std::vector<FaceRect> faces = objectdetect_cnn(pRgb, width, height, width*3);
+		m_draw.rects.resize(faces.size());
+		for (int i = 0; i < faces.size(); i++)
+		{
+			m_draw.rects[i] = RECT{ faces[i].x, height - faces[i].y,
+				faces[i].x + faces[i].w, height - (faces[i].y + faces[i].h) };
+		}
 		break;
+	}
 	default:
 		break;
 	}

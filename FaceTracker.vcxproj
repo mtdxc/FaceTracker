@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>include;include/seeta</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WINDLL;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;_WINDOWS;_ENABLE_AVX2;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -115,7 +115,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>include;include/seeta</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WINDLL;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;_WINDOWS;_ENABLE_AVX2;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -140,6 +140,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\cnn\facedetectcnn-floatdata.cpp" />
+    <ClCompile Include="src\cnn\facedetectcnn-int8data.cpp" />
+    <ClCompile Include="src\cnn\facedetectcnn-model.cpp" />
+    <ClCompile Include="src\cnn\facedetectcnn.cpp" />
     <ClCompile Include="src\core\algorithm.cpp" />
     <ClCompile Include="src\core\alloc.cpp" />
     <ClCompile Include="src\core\arithm.cpp" />
@@ -226,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\common.h" />
+    <ClInclude Include="include\facedetectcnn.h" />
     <ClInclude Include="include\FaceTracker\CLM.h" />
     <ClInclude Include="include\FaceTracker\FCheck.h" />
     <ClInclude Include="include\FaceTracker\FDet.h" />
